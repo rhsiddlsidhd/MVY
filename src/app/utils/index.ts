@@ -35,15 +35,15 @@ export const fetchMovies = async <T extends TMDBBaseResponse>(
   const url = `${baseUrl}${endpoint}?language=${language}&page=${page}`;
 
   const res = await fetch(url, options);
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
   if (!res.ok) {
     throw new Error(`API 요청중 실패하였습니다.`);
   }
 
   const data: T = await res.json();
-
-  if (data.success === false) {
-    throw new Error(data.status_message);
-  }
 
   return data;
 };

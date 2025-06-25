@@ -1,8 +1,17 @@
+import { notFound } from "next/navigation";
 import MovieHome from "./movieHome/page";
-import { getLatestMovies, getMovieGenres } from "./services/movie";
+
+import { getMovieDetail } from "./services/movie";
 
 export default async function Home() {
-  const data = await getLatestMovies();
+  try {
+    const data = await getMovieDetail(127);
 
-  return <MovieHome data={data}></MovieHome>;
+    return <MovieHome data={data}></MovieHome>;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      notFound();
+    }
+  }
 }

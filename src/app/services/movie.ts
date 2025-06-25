@@ -25,15 +25,15 @@ export const getMovieGenres = async <
   const url = `${baseUrl}/genre/movie/list?language=${language}`;
 
   const res = await fetch(url, options);
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
   if (!res.ok) {
     throw new Error(`API 요청중 실패하였습니다.`);
   }
 
   const data: T = await res.json();
-
-  if (data.success === false) {
-    throw new Error(data.status_message);
-  }
 
   return data;
 };
@@ -54,15 +54,241 @@ export const getLatestMovies = async <
   const url = `${baseUrl}/movie/latest`;
 
   const res = await fetch(url, options);
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
   if (!res.ok) {
     throw new Error(`API 요청중 실패하였습니다.`);
   }
 
   const data: T = await res.json();
 
-  if (data.success === false) {
-    throw new Error(data.status_message);
+  return data;
+};
+
+export const getMovieDetail = async <T extends TMDBBaseResponse>(
+  movieId: number
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+
+  const url = `${baseUrl}/movie/${movieId}?language=${language}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
   }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
+
+  return data;
+};
+
+export const getMovieSearch = async <T extends TMDBBaseResponse>(
+  query: string,
+  page: number = 1
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+  const include_adult = true;
+
+  const url = `${baseUrl}/search/movie?query=${query}&language=${language}&include_adult=${include_adult}&page=${page}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
+
+  return data;
+};
+
+export const getMovieVideos = async <T extends TMDBBaseResponse>(
+  movieId: string
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+
+  const url = `${baseUrl}/movie/${movieId}/videos?language=${language}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
+
+  return data;
+};
+
+export const getMovieReviews = async <T extends TMDBBaseResponse>(
+  movieId: string,
+  page: number = 1
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+
+  const url = `${baseUrl}/movie/${movieId}/reviews?language=${language}&=page=${page}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
+
+  return data;
+};
+
+export const getMovieSimilar = async <T extends TMDBBaseResponse>(
+  movieId: string,
+  page: number = 1
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+
+  const url = `${baseUrl}/movie/${movieId}/similar?language=${language}&=page=${page}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
+
+  return data;
+};
+
+export const getMovieRecommendations = async <T extends TMDBBaseResponse>(
+  movieId: string,
+  page: number = 1
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+
+  const url = `${baseUrl}/movie/${movieId}/recommendations?language=${language}&=page=${page}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
+
+  return data;
+};
+
+export const getFilteredMovies = async <T extends TMDBBaseResponse>(
+  genre: number,
+  page: number = 1
+): Promise<T> => {
+  const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+  const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${key}`,
+    },
+  };
+  const language = "ko-KR";
+  const include_adult = true;
+  const include_video = true;
+  const sort_by = "popularity.desc";
+
+  const url = `${baseUrl}/discover/movie?genre=${genre}&include_adult=${include_adult}&include_video=${include_video}&language=${language}&sort_by=${sort_by}&page=${page}`;
+
+  const res = await fetch(url, options);
+
+  if (res.status === 404) {
+    const message = await res.json().then((error) => error.status_message);
+    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+  }
+  if (!res.ok) {
+    throw new Error(`API 요청중 실패하였습니다.`);
+  }
+
+  const data: T = await res.json();
 
   return data;
 };
