@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="w-[30%] min-w-fit text-white text-[5vw] group inline-block"
+      className="itmes-center text-[2vw]  text-white group bg-[#272727] rounded-br-4xl top-0  p-[1rem_2rem_1rem_1rem] "
     >
       {[...title].map((w, idx) => {
         const isUpper = w === w.toUpperCase();
@@ -23,7 +23,7 @@ const Logo = () => {
         return (
           <span
             key={idx}
-            className={`inline-block text-[3rem] transition-all duration-500 ${
+            className={`inline-block transition-all duration-500  ${
               isUpper
                 ? `${customTranslate} group-hover:translate-x-0`
                 : "opacity-0 -translate-x-full group-hover:opacity-100 group-hover:translate-x-0"
