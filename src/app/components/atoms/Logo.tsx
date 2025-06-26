@@ -23,7 +23,7 @@ const Logo = () => {
         return (
           <span
             key={idx}
-            className={`inline-block transition-all duration-500 ${
+            className={`inline-block text-[3rem] transition-all duration-500 ${
               isUpper
                 ? `${customTranslate} group-hover:translate-x-0`
                 : "opacity-0 -translate-x-full group-hover:opacity-100 group-hover:translate-x-0"
