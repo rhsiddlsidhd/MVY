@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getMovieGenres } from "../services/movie";
 import List from "../components/List";
 import { TMDBBaseResponse } from "../utils";
+import Logo from "../components/atoms/Logo";
 
 interface GenreResponse extends TMDBBaseResponse {
   genres: { id: number; name: string }[];
@@ -14,6 +15,7 @@ const Category = async () => {
       <div>
         <h1>Category</h1>
         <List genres={res.genres}></List>
+        <Logo />
       </div>
     );
   } catch (error) {

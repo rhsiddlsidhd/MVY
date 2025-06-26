@@ -17,11 +17,7 @@ function withIconStyle(
     const cursor = onClick ? "pointer" : "default";
 
     return (
-      <div
-        className={className}
-        style={{ cursor: cursor, width: "fit-content" }}
-        {...rest}
-      >
+      <div className={className} style={{ cursor: cursor }} {...rest}>
         <Icon fontSize="inherit" color="inherit" onClick={onClick} />
       </div>
     );
