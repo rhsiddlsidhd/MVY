@@ -3,12 +3,14 @@
 import { SearchIcon } from "../atoms/Icon";
 import Input from "../atoms/Input";
 
-const SearchBar = () => {
+const SearchBar = ({ boxClassname }: { boxClassname?: string }) => {
   return (
-    <div className="flex gap-2 max-w-[15vw]">
+    <div
+      className={`${boxClassname} flex gap-[1rem] max-w-[15vw] items-center z-10`}
+    >
       <Input />
       <SearchIcon
-        className="flex items-center text-[2vw] hover:scale-120 transition-all duration-500"
+        className="flex  text-[2vw] hover:scale-[1.2] transition-all duration-500 "
         onClick={() => console.log("클릭")}
       />
     </div>

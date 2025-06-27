@@ -1,13 +1,30 @@
 "use client";
 import React from "react";
-import { HamburgerIcon } from "../atoms/Icon";
+import { CloseIcon, HamburgerIcon } from "../atoms/Icon";
 
-const Hamburger = () => {
+const Hamburger = ({
+  onClick,
+  isOpen,
+}: {
+  onClick?: () => void;
+  isOpen?: boolean;
+}) => {
   return (
-    <HamburgerIcon
-      className="text-[2vw] flex items-center hover:scale-120 transition-all duration-500"
-      onClick={() => console.log("클릭")}
-    />
+    <button
+      className="relative h-full w-[2vw] max-sm:w-fit flex items-center max-sm:justify-end "
+      onClick={onClick}
+    >
+      <CloseIcon
+        className={`cursor-pointer max-sm:text-[1.5rem] text-[2vw] absoulte  ${
+          isOpen ? "opacity-100" : "opacity-0"
+        } transform-gpu transition-opacity duration-300 `}
+      />
+      <HamburgerIcon
+        className={`cursor-pointer max-sm:text-[1.5rem] text-[2vw] absolute   ${
+          isOpen ? "opacity-0" : "opacity-100"
+        }  transform-gpu transition-opacity duration-300`}
+      />
+    </button>
   );
 };
 

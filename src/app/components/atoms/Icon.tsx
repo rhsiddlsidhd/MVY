@@ -16,10 +16,9 @@ function withIconStyle(
 ): React.ComponentType<IconButtonProps> {
   const IconWithStyle = (props: IconButtonProps) => {
     const { onClick, className, ...rest } = props;
-    const cursor = onClick ? "pointer" : "default";
 
     return (
-      <div className={className} style={{ cursor: cursor }} {...rest}>
+      <div className={className} style={{ cursor: "pointer" }} {...rest}>
         <Icon fontSize="inherit" color="inherit" onClick={onClick} />
       </div>
     );
