@@ -6,7 +6,7 @@ import Input from "../atoms/Input";
 const SearchBar = ({ boxClassname }: { boxClassname?: string }) => {
   return (
     <div
-      className={`${boxClassname} flex gap-[1rem] max-w-[15vw] items-center z-10`}
+      className={`${boxClassname} flex gap-[0.25rem] max-w-[15vw] items-center z-10`}
     >
       <Input />
       <SearchIcon

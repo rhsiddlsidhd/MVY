@@ -11,7 +11,7 @@ const Hamburger = ({
 }) => {
   return (
     <button
-      className="relative h-full w-[2vw] max-sm:w-fit flex items-center max-sm:justify-end "
+      className="relative h-full w-[2vw] max-sm:w-fit flex items-center max-sm:justify-end z-50"
       onClick={onClick}
     >
       <CloseIcon

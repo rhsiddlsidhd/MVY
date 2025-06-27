@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Logo from "./components/atoms/Logo";
 import SearchBarWithHamburger from "./components/organisms/SearchBarWithHamburger";
-import Hamburger from "./components/molecules/Hamburger";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="w-full fixed top-0 flex justify-between bg-[#272727] sm:bg-transparent">
+        <header className="w-full fixed top-0 flex justify-between bg-[#272727] sm:bg-transparent z-10 text-[#B7B508]">
           <Logo />
           <SearchBarWithHamburger />
         </header>

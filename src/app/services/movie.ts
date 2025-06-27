@@ -1,12 +1,16 @@
 import { fetchMovies, TMDBBaseResponse } from "../utils";
 
-export const getTopRatedMovies = () => fetchMovies("/movie/top_rated");
+export const getTopRatedMovies = <T extends TMDBBaseResponse>() =>
+  fetchMovies<T>("/movie/top_rated");
 
-export const getPopularMovies = () => fetchMovies("/movie/popular");
+export const getPopularMovies = <T extends TMDBBaseResponse>() =>
+  fetchMovies<T>("/movie/popular");
 
-export const getNowPlayingMovies = () => fetchMovies("/movie/now_playing");
+export const getNowPlayingMovies = <T extends TMDBBaseResponse>() =>
+  fetchMovies<T>("/movie/now_playing");
 
-export const getUpcomingMovies = () => fetchMovies("/movie/now_playing");
+export const getUpcomingMovies = <T extends TMDBBaseResponse>() =>
+  fetchMovies<T>("/movie/now_playing");
 
 export const getMovieGenres = async <
   T extends TMDBBaseResponse
