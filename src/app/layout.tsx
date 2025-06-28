@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="w-full fixed top-0 flex justify-between bg-[#272727] sm:bg-transparent z-10 text-[#B7B508]">
+        <header className="w-full fixed top-0 flex justify-between bg-[#272727] sm:bg-transparent z-50 text-[#B7B508]">
           <Logo />
           <SearchBarWithHamburger />
         </header>

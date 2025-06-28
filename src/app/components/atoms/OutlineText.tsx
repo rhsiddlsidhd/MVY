@@ -9,8 +9,13 @@ const OutlineText = ({
 }) => {
   return (
     <span
-      className={`${className} text-transparent`}
-      style={{ WebkitTextStroke: "0.5px #FFFFFF" }}
+      className={`${className} text-transparent break-keep`}
+      style={{
+        WebkitTextStroke: "0.5px #B7B508",
+        display: "-webkit-box",
+        WebkitBoxOrient: "vertical",
+        overflow: "hidden",
+      }}
     >
       {children}
     </span>

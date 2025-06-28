@@ -35,11 +35,12 @@ const Upcoming = async () => {
   try {
     const res = await getNowPlayingMovies<MovieListResponse>();
     const data = res.results[0];
+    console.log(data);
     return (
-      <div>
-        <h1>Category</h1>
+      <div className="h-[100vh] flex justify-center items-center">
+        {/* <h1>Category</h1> */}
         {/* {res.results.slice()} */}
-        <Card data={data} className="w-[500px] aspect-[16/9] " />
+        <Card data={data} className="w-[100%] aspect-[16/9]" />
       </div>
     );
   } catch (error) {
