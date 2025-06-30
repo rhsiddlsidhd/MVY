@@ -3,12 +3,13 @@ import { getMovieGenres } from "../services/movie";
 import List from "../components/List";
 import { TMDBBaseResponse } from "../utils";
 
-interface GenreResponse extends TMDBBaseResponse {
+export interface GenreResponse extends TMDBBaseResponse {
   genres: { id: number; name: string }[];
 }
 const Category = async () => {
   try {
     const res = await getMovieGenres<GenreResponse>();
+    console.log("장르", res);
 
     return (
       <div>
