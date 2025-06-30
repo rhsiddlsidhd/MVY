@@ -12,7 +12,7 @@ const Badge = ({
     <div
       className={`aspect-square flex items-center justify-center ${className}`}
     >
-      <Text className="text-[2vw] px-2 py-0.5">{children}</Text>
+      <Text className="px-1 py-0.5">{children}</Text>
     </div>
   );
 };

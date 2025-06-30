@@ -9,10 +9,7 @@ const SearchBar = ({ boxClassname }: { boxClassname?: string }) => {
       className={`${boxClassname} flex gap-[0.25rem] max-w-[15vw] items-center z-10`}
     >
       <Input />
-      <SearchIcon
-        className="flex w-[3vw] hover:scale-[1.2] transition-all duration-500 cursor-pointer"
-        onClick={() => console.log("클릭")}
-      />
+      <SearchIcon className="flex w-[3vw] hover:scale-[1.2] transition-all duration-500 cursor-pointer" />
     </div>
   );
 };

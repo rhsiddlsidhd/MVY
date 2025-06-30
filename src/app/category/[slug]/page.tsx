@@ -29,9 +29,8 @@ const CategoryDetailPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
-  console.log(slug);
+
   const data = await getFilteredMovies<CategoryDetailResponse>(Number(slug));
-  console.log("data", data);
 
   return (
     <div>

@@ -11,7 +11,7 @@ const OutlineText = ({
     <span
       className={`${className} text-transparent break-keep`}
       style={{
-        WebkitTextStroke: "0.5px #B7B508",
+        WebkitTextStroke: "1px #B7B508",
         display: "-webkit-box",
         WebkitBoxOrient: "vertical",
         overflow: "hidden",

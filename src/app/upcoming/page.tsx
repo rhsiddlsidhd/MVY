@@ -42,9 +42,9 @@ const Upcoming = async () => {
     ]);
 
     // const data = res.results[0];
-    // console.log(data);
+
     const movie = movieRes.results[0];
-    console.log(movie);
+
     const genreMap = genreRes.genres.reduce((acc, genre) => {
       acc[genre.id] = genre.name;
       return acc;

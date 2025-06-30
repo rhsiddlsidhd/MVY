@@ -11,12 +11,13 @@ const PopularSection = ({
 }) => {
   return (
     <section className="flex flex-wrap justify-between gap-[1rem] ">
-      {data.results.map((movie) => {
+      {data.results.slice(0, 4).map((movie, i) => {
         return (
           <Card
             data={movie}
             genreMap={genreMap}
-            className="inline-block w-[calc(100%/2-1rem)] aspect-[16/9]"
+            className="inline-block w-[calc(100%/2-0.5rem)] aspect-[16/9]"
+            key={i}
           />
         );
       })}

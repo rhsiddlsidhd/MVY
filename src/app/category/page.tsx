@@ -9,7 +9,6 @@ export interface GenreResponse extends TMDBBaseResponse {
 const Category = async () => {
   try {
     const res = await getMovieGenres<GenreResponse>();
-    console.log("장르", res);
 
     return (
       <div>

@@ -33,7 +33,7 @@ export default function RootLayout({
           <Logo />
           <SearchBarWithHamburger />
         </header>
-        <div className="max-w-[1960px] w-full p-[5vw] flex flex-col gap-[5rem]">
+        <div className="max-w-[1960px] w-full p-[5vw] max-sm:pt-[3rem] ">
           {children}
         </div>
       </body>

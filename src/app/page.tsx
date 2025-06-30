@@ -8,6 +8,7 @@ import { GenreResponse } from "./category/page";
 import NowPlayingSection from "./components/organisms/NowPlayingSection";
 import { MovieListResponse } from "./upcoming/page";
 import PopularSection from "./components/organisms/PopularSection";
+import CategorySection from "./components/organisms/CategorySection";
 
 const Home = async () => {
   try {
@@ -21,8 +22,9 @@ const Home = async () => {
     }, {} as Record<number, string>);
 
     return (
-      <div className="h-[200vh]">
+      <div className="flex flex-col gap-[3rem]">
         <NowPlayingSection genreMap={genreMap} data={nowPlaying} />
+        <CategorySection data={genreMap} />
         <PopularSection genreMap={genreMap} data={popular} />
       </div>
     );
