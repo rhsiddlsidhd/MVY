@@ -24,7 +24,7 @@ const Home = async () => {
     return (
       <div className="flex flex-col gap-[3rem]">
         <NowPlayingSection genreMap={genreMap} data={nowPlaying} />
-        <CategorySection data={genreMap} />
+        <CategorySection data={genreRes} />
         <PopularSection genreMap={genreMap} data={popular} />
       </div>
     );

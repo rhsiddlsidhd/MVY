@@ -25,7 +25,7 @@ const SearchBarWithHamburger = () => {
       <div
         className={`w-full h-full fixed top-0 bg-[#272727] flex items-center text-[10vw]  transform-gpu ${
           isOpen ? "-translate-y-0" : "-translate-y-full"
-        } duration-300 ease-in sm:hidden `}
+        } duration-300 ease-in sm:hidden`}
       >
         <Nav fn={() => setIsOpen(false)} />
       </div>
