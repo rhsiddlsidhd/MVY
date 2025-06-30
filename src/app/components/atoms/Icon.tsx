@@ -1,37 +1,29 @@
 "use client";
-import { SvgIcon } from "@mui/material";
-import Search from "@mui/icons-material/Search";
-import Close from "@mui/icons-material/Close";
-import Menu from "@mui/icons-material/Menu";
-import StarRate from "@mui/icons-material/StarRate";
+import {
+  StarIcon,
+  Bars3Icon,
+  XMarkIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/solid";
+import { ComponentType, SVGProps } from "react";
 
-export interface IconButtonProps {
-  onClick?: React.MouseEventHandler<SVGSVGElement>;
-  className?: string;
-  backgroundColor?: string;
-  size?: number;
-}
-
-function withIconStyle(
-  Icon: typeof SvgIcon
-): React.ComponentType<IconButtonProps> {
-  const IconWithStyle = (props: IconButtonProps) => {
-    const { onClick, className, ...rest } = props;
-
+const withIconStyle = <P extends SVGProps<SVGSVGElement>>(
+  IconComponent: ComponentType<P>
+) => {
+  const WrappedIcon = (props: P) => {
     return (
-      <div className={className} style={{ cursor: "pointer" }} {...rest}>
-        <Icon fontSize="inherit" color="inherit" onClick={onClick} />
-      </div>
+      <IconComponent
+        className={`${props.className}`}
+        onClick={props.onClick}
+        {...props}
+      />
     );
   };
 
-  return IconWithStyle;
-}
+  return WrappedIcon;
+};
 
-export const CloseIcon = withIconStyle(Close);
-
-export const SearchIcon = withIconStyle(Search);
-
-export const HamburgerIcon = withIconStyle(Menu);
-
-export const StarRateIcon = withIconStyle(StarRate);
+export const CloseIcon = withIconStyle(XMarkIcon);
+export const SearchIcon = withIconStyle(MagnifyingGlassIcon);
+export const HamburgerIcon = withIconStyle(Bars3Icon);
+export const StarRateIcon = withIconStyle(StarIcon);

@@ -10,9 +10,9 @@ const Badge = ({
 }) => {
   return (
     <div
-      className={`min-w-[24px] aspect-square px-2 flex items-center justify-center ${className}`}
+      className={`aspect-square flex items-center justify-center ${className}`}
     >
-      <Text className="w-full inline-block m-[0.15rem]">{children}</Text>
+      <Text className="text-[2vw] px-2 py-0.5">{children}</Text>
     </div>
   );
 };

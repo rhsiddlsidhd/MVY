@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import Img from "./Img";
 import Badge from "./Badge";
 import OutlineText from "./OutlineText";
+import Link from "next/link";
 import { StarRateIcon } from "./Icon";
 
 const Card = ({ className, data }: { data: MovieList; className?: string }) => {
   const [mouseEnter, setMouseEnter] = useState(false);
 
-  const { backdrop_path, adult, title, original_title, vote_average } = data;
+  const { backdrop_path, title, original_title, vote_average } = data;
 
   return (
-    <a
+    <Link
       className={`${className} relative rounded-4xl overflow-hidden`}
       onMouseEnter={() => setMouseEnter(true)}
       onMouseLeave={() => setMouseEnter(false)}
@@ -37,14 +38,16 @@ const Card = ({ className, data }: { data: MovieList; className?: string }) => {
         <OutlineText className="text-[3vw] line-clamp-2 brightness-200">
           ( {title} )
         </OutlineText>
-        <div className="flex items-center gap-1">
-          <StarRateIcon className="text-[1.5rem] text-[#FFD34F]" />
-          <OutlineText className="text-[1rem] brightness-200 ">
-            {vote_average.toFixed(1)}
-          </OutlineText>
-        </div>
       </div>
-    </a>
+      <div className="absolute right-[1rem] bottom-[1rem] flex items-center gap-1">
+        <div className="w-[3vw] text-[#FFD34F]">
+          <StarRateIcon />
+        </div>
+        <OutlineText className="text-[3vw] brightness-200 ">
+          {vote_average.toFixed(1)}
+        </OutlineText>
+      </div>
+    </Link>
   );
 };
 
