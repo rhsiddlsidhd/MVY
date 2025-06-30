@@ -18,8 +18,14 @@ const Card = ({
 }) => {
   const [mouseEnter, setMouseEnter] = useState(false);
 
-  const { backdrop_path, title, original_title, vote_average, genre_ids } =
-    data;
+  const {
+    backdrop_path,
+    title,
+    original_title,
+    vote_average,
+    genre_ids,
+    adult,
+  } = data;
 
   return (
     <Link
@@ -28,12 +34,14 @@ const Card = ({
       onMouseLeave={() => setMouseEnter(false)}
       href="/"
     >
-      <div className="relative rounded-4xl w-full h-full brightness-30 overflow-hidden">
+      <div className="relative rounded-4xl w-full h-full brightness-30 overflow-hidden ">
         <Img alt="이미지" src={backdrop_path} />
       </div>
-      <Badge className="absolute text-white font-bold top-[1rem] right-[1rem] bg-[red] rounded-full">
-        19
-      </Badge>
+      {adult && (
+        <Badge className="absolute text-white font-bold top-[1rem] right-[1rem] bg-[red] rounded-full">
+          19
+        </Badge>
+      )}
       <div
         className={`absolute w-full h-full top-0 left-0 bg-[#b7b40821] rounded-4xl ${
           mouseEnter ? "opacity-0" : "opacity-100"

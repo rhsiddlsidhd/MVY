@@ -21,7 +21,7 @@ export type MovieList = {
   vote_count: number;
 };
 
-interface MovieListResponse extends TMDBBaseResponse {
+export interface MovieListResponse extends TMDBBaseResponse {
   dates: { maximum: string; minimum: string };
   page: number;
   results: MovieList[];

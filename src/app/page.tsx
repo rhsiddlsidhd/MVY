@@ -1,9 +1,37 @@
-export default function Home() {
-  return (
-    <div className=" flex justify-center p-[6rem] max-sm:p-[1.5rem] h-[200vh] ">
-      <div className="border-2 max-w-[1920px] w-full h-full bg-[#B7B508]">
-        123
+import { notFound } from "next/navigation";
+import {
+  getMovieGenres,
+  getNowPlayingMovies,
+  getPopularMovies,
+} from "./services/movie";
+import { GenreResponse } from "./category/page";
+import NowPlayingSection from "./components/organisms/NowPlayingSection";
+import { MovieListResponse } from "./upcoming/page";
+import PopularSection from "./components/organisms/PopularSection";
+
+const Home = async () => {
+  try {
+    const nowPlaying = await getNowPlayingMovies<MovieListResponse>();
+    const popular = await getPopularMovies<MovieListResponse>();
+    const genreRes = await getMovieGenres<GenreResponse>();
+
+    const genreMap = genreRes.genres.reduce((acc, genre) => {
+      acc[genre.id] = genre.name;
+      return acc;
+    }, {} as Record<number, string>);
+
+    return (
+      <div className="h-[200vh]">
+        <NowPlayingSection genreMap={genreMap} data={nowPlaying} />
+        <PopularSection genreMap={genreMap} data={popular} />
       </div>
-    </div>
-  );
-}
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      notFound();
+    }
+  }
+};
+
+export default Home;

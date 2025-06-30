@@ -27,13 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex justify-center`}
       >
         <header className="w-full fixed top-0 flex justify-between bg-[#272727] sm:bg-transparent z-50 text-[#B7B508]">
           <Logo />
           <SearchBarWithHamburger />
         </header>
-        {children}
+        <div className="max-w-[1960px] w-full p-[5vw] flex flex-col gap-[5rem]">
+          {children}
+        </div>
       </body>
     </html>
   );
