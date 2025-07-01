@@ -13,7 +13,7 @@ const NowPlayingSection = ({
   genreMap: Record<number, string>;
 }) => {
   return (
-    <div className=" h-[50vh]">
+    <div className="h-[50vh] min-h-fit">
       <Card
         data={data.results[0]}
         genreMap={genreMap}

@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { MovieList } from "@/app/upcoming/page";
-import { HandThumbUp, StarRateIcon } from "../atoms/Icon";
+import { HandThumbUp, PersonIcon, StarRateIcon } from "../atoms/Icon";
 import OutlineText from "../atoms/OutlineText";
 import Text from "../atoms/Text";
 
 type ContentProps = {
-  type: "nowPlaying" | "popular" | "default";
+  type: "nowPlaying" | "popular" | "topRated" | "default";
   data: MovieList;
   genreMap: Record<number, string>;
   mouseEnter?: boolean;
@@ -21,6 +21,7 @@ const Content = ({ type, data, genreMap, mouseEnter }: ContentProps) => {
     genre_ids,
     popularity,
     overview,
+    vote_count,
   } = data;
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
@@ -40,8 +41,6 @@ const Content = ({ type, data, genreMap, mouseEnter }: ContentProps) => {
 
   useEffect(() => {
     function updateWidth() {
-      console.log("containerRef:", containerRef.current);
-      console.log("textRef:", textRef.current);
       if (containerRef.current && textRef.current) {
         const width = textRef.current.offsetWidth;
         containerRef.current.style.width = `${width}px`;
@@ -49,10 +48,8 @@ const Content = ({ type, data, genreMap, mouseEnter }: ContentProps) => {
       }
     }
 
-    // 첫 실행 시 렌더링 완료된 다음 프레임에서 실행
     const frameId = requestAnimationFrame(updateWidth);
 
-    // resize 이벤트에 디바운스된 함수 적용
     const debouncedUpdateWidth = debounce(() => {
       requestAnimationFrame(updateWidth);
     }, 200);
@@ -64,10 +61,6 @@ const Content = ({ type, data, genreMap, mouseEnter }: ContentProps) => {
       window.removeEventListener("resize", debouncedUpdateWidth);
     };
   }, [original_title]);
-
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
 
   switch (type) {
     case "nowPlaying":
@@ -100,6 +93,53 @@ const Content = ({ type, data, genreMap, mouseEnter }: ContentProps) => {
           </div>
         </div>
       );
+    case "topRated":
+      return (
+        <div
+          className={`relative h-full ${
+            mouseEnter ? "-translate-y-full" : "-translate-y-0"
+          } duration-300 ease-in `}
+        >
+          <div
+            className={`h-full min-h-fit flex justify-center items-center  flex-col  overflow-hidden ${
+              mouseEnter ? "opacity-0" : "opacity-100"
+            } duration-100 ease-in `}
+          >
+            <div
+              className={`overflow-hidden relative ${
+                loading ? "opacity-0" : "opacity-100"
+              }`}
+              ref={containerRef}
+            >
+              <div className="flex animate-slide-x w-fit text-[var(--text-basic)] text-[1.25vw]">
+                <span ref={textRef} className="whitespace-nowrap px-[0.5rem]">
+                  {title === "" ? original_title : title}
+                </span>
+                <span className="whitespace-nowrap px-[0.5rem]">
+                  {title === "" ? original_title : title}
+                </span>
+              </div>
+            </div>
+
+            <Text className="flex items-center gap-[0.25rem] min-w-fit text-[#B7B508] font-bold text-[3vw]">
+              <PersonIcon className="w-[3vw]" />
+              {vote_count}
+            </Text>
+
+            <Text className="flex items-center gap-[0.25rem] min-w-fit text-[#B7B508] font-bold text-[3vw]">
+              <StarRateIcon className="w-[3vw]" />
+              {vote_average.toFixed(1)}
+            </Text>
+          </div>
+          <div
+            className={`relative h-full w-full text-[var(--text-basic)] text-[1.5vw] overflow-auto scrollbar-hide ${
+              mouseEnter ? "opacity-100" : "opacity-0"
+            } duration-300 ease-in `}
+          >
+            {overview !== "" ? overview : "줄거리 정보가 없습니다."}
+          </div>
+        </div>
+      );
     case "popular":
       return (
         <div
@@ -120,15 +160,15 @@ const Content = ({ type, data, genreMap, mouseEnter }: ContentProps) => {
             >
               <div className="flex animate-slide-x w-fit text-[var(--text-basic)] text-[1.25vw]">
                 <span ref={textRef} className="whitespace-nowrap px-[0.5rem]">
-                  {original_title}
+                  {title === "" ? original_title : title}
                 </span>
                 <span className="whitespace-nowrap px-[0.5rem]">
-                  {original_title}
+                  {title === "" ? original_title : title}
                 </span>
               </div>
             </div>
 
-            <Text className="flex items-center gap-[1rem] min-w-fit text-[#B7B508] font-bold text-[3vw]">
+            <Text className="flex items-center gap-[0.25rem] min-w-fit text-[#B7B508] font-bold text-[3vw]">
               <HandThumbUp className="w-[3vw]" />
               {popularity}
             </Text>

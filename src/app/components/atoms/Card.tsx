@@ -8,7 +8,6 @@ import Link from "next/link";
 const Card = ({
   className,
   genreMap,
-
   overlay,
   Content,
   data,
@@ -37,7 +36,7 @@ const Card = ({
 
   return (
     <Link
-      className={`${className} relative rounded-4xl overflow-hidden p-[2rem] `}
+      className={`${className} relative rounded-4xl overflow-hidden p-[2vw] `}
       onMouseEnter={() => setMouseEnter(true)}
       onMouseLeave={() => setMouseEnter(false)}
       href="/"

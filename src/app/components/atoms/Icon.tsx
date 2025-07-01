@@ -5,6 +5,7 @@ import {
   XMarkIcon,
   MagnifyingGlassIcon,
   HandThumbUpIcon,
+  UserIcon,
 } from "@heroicons/react/24/solid";
 import { ComponentType, SVGProps } from "react";
 
@@ -29,3 +30,4 @@ export const SearchIcon = withIconStyle(MagnifyingGlassIcon);
 export const HamburgerIcon = withIconStyle(Bars3Icon);
 export const StarRateIcon = withIconStyle(StarIcon);
 export const HandThumbUp = withIconStyle(HandThumbUpIcon);
+export const PersonIcon = withIconStyle(UserIcon);
