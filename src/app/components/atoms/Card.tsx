@@ -16,7 +16,11 @@ const Card = ({
   data: MovieList;
   genreMap: Record<number, string>;
   overlay?: (state: { mouseEnter: boolean }) => React.ReactNode;
-  Content?: React.FC<{ data: MovieList; genreMap: Record<number, string> }>;
+  Content?: React.FC<{
+    data: MovieList;
+    genreMap: Record<number, string>;
+    mouseEnter: boolean;
+  }>;
   className?: string;
 }) => {
   const [mouseEnter, setMouseEnter] = useState(false);
@@ -44,7 +48,9 @@ const Card = ({
         className="brightness-30 object-cover"
       />
       {overlay && overlay({ mouseEnter })}
-      {Content && <Content data={data} genreMap={genreMap} />}
+      {Content && (
+        <Content data={data} genreMap={genreMap} mouseEnter={mouseEnter} />
+      )}
       <div className="w-[15%] flex gap-1 items-center justify-end absolute top-[0.5rem] right-[1rem] ">
         {isNewRelease(release_date) && (
           <Badge className="w-[50%] text-[min(1vw,1.5rem)] text-white font-bold bg-[#c63bc6f3] rounded-full">

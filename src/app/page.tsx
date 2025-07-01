@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import {
   getMovieGenres,
   getNowPlayingMovies,
@@ -9,6 +8,7 @@ import NowPlayingSection from "./components/organisms/NowPlayingSection";
 import { MovieListResponse } from "./upcoming/page";
 import PopularSection from "./components/organisms/PopularSection";
 import CategorySection from "./components/organisms/CategorySection";
+import { notFound } from "next/navigation";
 
 const Home = async () => {
   try {
