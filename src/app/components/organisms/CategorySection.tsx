@@ -33,7 +33,7 @@ const CategorySection = ({ data }: { data: GenreResponse }) => {
   return (
     <section>
       <div
-        className={`relative h-[30vh] flex items-center justify-center gap-[1rem] `}
+        className={`relative h-[25vh] min-h-fit flex items-center justify-center gap-[1rem] `}
       >
         {data.genres.map(({ id, name }) => (
           <Link

@@ -38,12 +38,16 @@ const Card = ({
       onMouseLeave={() => setMouseEnter(false)}
       href="/"
     >
-      <Img alt="이미지" src={backdrop_path} className="brightness-30 " />
+      <Img
+        alt="이미지"
+        src={backdrop_path}
+        className="brightness-30 object-cover"
+      />
       {overlay && overlay({ mouseEnter })}
       {Content && <Content data={data} genreMap={genreMap} />}
       <div className="w-[15%] flex gap-1 items-center justify-end absolute top-[0.5rem] right-[1rem] ">
         {isNewRelease(release_date) && (
-          <Badge className="w-[50%] text-[min(1vw,1.5rem)] text-white font-bold bg-[#C63BC5] rounded-full">
+          <Badge className="w-[50%] text-[min(1vw,1.5rem)] text-white font-bold bg-[#c63bc6f3] rounded-full">
             New
           </Badge>
         )}

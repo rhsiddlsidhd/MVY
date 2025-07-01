@@ -15,7 +15,7 @@ const NowPlayingSection = ({
     <Card
       data={data.results[0]}
       genreMap={genreMap}
-      className="inline-block w-full h-[50vh]"
+      className="inline-block w-full h-[50vh] min-h-fit"
       overlay={({ mouseEnter }) => (
         <div
           className={`absolute w-full h-full top-0 left-0 bg-[#b7b40821] ${

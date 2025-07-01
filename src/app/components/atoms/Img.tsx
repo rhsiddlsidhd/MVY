@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 
@@ -13,7 +14,7 @@ const Img = ({
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_IMAGE_URL;
   return (
     <Image
-      className={`${className} object-cover`}
+      className={`${className} `}
       alt={alt}
       src={`${baseUrl}/${src}`}
       fill

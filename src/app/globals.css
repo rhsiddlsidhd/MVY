@@ -6,6 +6,19 @@
   --foreground: #171717;
 }
 
+@theme {
+  --text-basic: #b7b508;
+  --animate-slide-x: slide-x 3s linear infinite;
+  @keyframes slide-x {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
