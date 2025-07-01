@@ -10,13 +10,7 @@ const Category = async () => {
   try {
     const res = await getMovieGenres<GenreResponse>();
 
-    return (
-      <div>
-        <h1>Category</h1>
-
-        <List genres={res.genres}></List>
-      </div>
-    );
+    return <List genres={res.genres} />;
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
