@@ -1,3 +1,4 @@
+import { MovieListResponse, MovieVideosResponse } from "../upcoming/page";
 import { fetchMovies, TMDBBaseResponse } from "../utils";
 
 export const getTopRatedMovies = <T extends TMDBBaseResponse>() =>
@@ -14,7 +15,7 @@ export const getUpcomingMovies = <T extends TMDBBaseResponse>() =>
 
 export const getMovieGenres = async <
   T extends TMDBBaseResponse
->(): Promise<T> => {
+>(): Promise<T | null> => {
   const language = "ko";
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
   const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -30,11 +31,13 @@ export const getMovieGenres = async <
 
   const res = await fetch(url, options);
   if (res.status === 404) {
-    const message = await res.json().then((error) => error.status_message);
-    throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+    // const message = await res.json().then((error) => error.status_message);
+    // throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
+    return null;
   }
   if (!res.ok) {
-    throw new Error(`API 요청중 실패하였습니다.`);
+    // throw new Error(`API 요청중 실패하였습니다.`);
+    return null;
   }
 
   const data: T = await res.json();
@@ -71,9 +74,7 @@ export const getLatestMovies = async <
   return data;
 };
 
-export const getMovieDetail = async <T extends TMDBBaseResponse>(
-  movieId: number
-): Promise<T> => {
+export const getMovieDetail = async <T>(movieId: number): Promise<T> => {
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
   const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const options = {
@@ -136,7 +137,7 @@ export const getMovieSearch = async <T extends TMDBBaseResponse>(
 };
 
 export const getMovieVideos = async <T extends TMDBBaseResponse>(
-  movieId: string
+  movieId: number //string > number 일시 수정
 ): Promise<T> => {
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
   const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -295,4 +296,35 @@ export const getFilteredMovies = async <T extends TMDBBaseResponse>(
   const data: T = await res.json();
 
   return data;
+};
+
+export const getTrailerKeysFromNowPlaying = async () => {
+  const nowPlaying = await getNowPlayingMovies<MovieListResponse>();
+  const ids = nowPlaying && nowPlaying.results.map((movie) => movie.id);
+  if (!ids) return;
+  const videoResults = await Promise.all(
+    ids.map(async (id) => {
+      const res = await getMovieVideos<MovieVideosResponse>(id);
+      if (!res || !res.results) return null;
+
+      const trailer = res.results.find(
+        (video) => video.site === "YouTube" && video.type === "Trailer"
+      );
+
+      if (trailer) {
+        return {
+          id,
+          key: trailer.key,
+          name: trailer.name,
+        };
+      }
+
+      return null;
+    })
+  );
+
+  // null 제거하고 유효한 결과만 반환
+  return videoResults.filter(
+    (video): video is { id: number; key: string; name: string } => !!video
+  );
 };

@@ -1,28 +1,27 @@
 "use client";
-import { MovieListResponse } from "@/app/upcoming/page";
+import { MovieGenreResponse, MovieListResponse } from "@/app/upcoming/page";
+import dynamic from "next/dynamic";
 import React from "react";
-import Card from "../atoms/Card";
-import Content from "../molecules/Content";
+const Card3D = dynamic(() => import("../atoms/Card3D"), {
+  ssr: false,
+});
 
 const TopRatedSection = ({
   data,
-  genreMap,
+  genreRes,
 }: {
   data: MovieListResponse;
-  genreMap: Record<number, string>;
+  genreRes: MovieGenreResponse;
 }) => {
   return (
     <section className="flex flex-wrap justify-between gap-[1rem] ">
       {data.results.slice(0, 8).map((movie, i) => {
         return (
-          <Card
-            data={movie}
-            genreMap={genreMap}
-            // W 의 최소 값 어떻게 줄지 고민해보기
-            // 임시값 w-[calc(100%/4-1.5rem)] min-w-[10rem]
-            className="inline-block w-[calc(100%/4-1.5rem)] min-w-[10rem] aspect-[3/4]"
+          <Card3D
             key={i}
-            Content={(props) => <Content {...props} type="topRated" />}
+            data={movie}
+            genreRes={genreRes}
+            className="inline-block w-[calc(100%/4-1.5rem)] min-w-[10rem] aspect-[3/4]"
           />
         );
       })}

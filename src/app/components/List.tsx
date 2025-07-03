@@ -1,67 +1,67 @@
 "use client";
+
 import React from "react";
+i;
 
 interface GenreResponse {
   id: number;
   name: string;
 }
+
 const List = ({ genres }: { genres: GenreResponse[] }) => {
+  // const containerSize = 80;
+  // const itemSize = 10;
+  // const radius = containerSize / 2;
+  // const offset = radius - itemSize / 2;
+  // const hoverOffset = offset + 5;
+
+  // const itemCount = 19;
+  // const startAngle = 270;
+  // const endAngle = 90;
+
+  // const angleStep = ((endAngle + 360 - startAngle) % 360) / (itemCount - 1);
+
+  // const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+
   return (
-    <div className=" ">
-      {/* <ul>
-        {genres.map((genre) => (
-          <li key={genre.id}>
-            <a href={`/category/${genre.id}`}>{genre.name}</a>
-          </li>
-        ))}
-      </ul> */}
-      {/* <div className="fixed w-[80%] aspect-[1/1] left-[10%] bottom-[10%] border-2 rounded-full">
-        <div className="border-2 w-[15vw] h-[50px] absolute left-0 top-[50%] -translate-x-[60%] rotate-0">
-          1
-        </div>
-        <div className="border-2 w-[15vw] h-[50px] absolute left-0 top-[45%] -translate-x-[57%] rotate-3">
-          2
-        </div>
-        <div className="border-2 w-[15vw] h-[50px] absolute left-0 top-[40%] -translate-x-[54%] rotate-6">
-          3
-        </div>
-        <div className="border-2 w-[15vw] h-[50px] absolute left-0 top-[35%] -translate-x-[51%] rotate-9">
-          4
-        </div>
-        <div className="border-2 w-[15vw] h-[50px] absolute left-0 top-[30%] -translate-x-[48%] rotate-12">
-          5
-        </div>
-        <div className="border-2 w-[15vw] h-[50px] absolute left-0 top-[25%] -translate-x-[45%] rotate-15">
-          6
-        </div>
-      </div> */}
-      <div className="relative w-[300px] aspect-square border-2 border-black rounded-full">
-        {Array.from({ length: 19 }).map((_, i) => {
-          const angle = (360 / 19) * i;
+    <div className="h-dvh flex justify-center items-center"></div>
+    // <div
+    //   className="fixed bottom-0"
+    //   style={{
+    //     width: `${containerSize}vw`,
+    //     aspectRatio: "1 / 1",
+    //     border: "2px solid black",
+    //     borderRadius: "50%",
+    //   }}
+    // >
+    //   {Array.from({ length: itemCount }).map((_, i) => {
+    //     const angle = startAngle + angleStep * i;
+    //     const isHovered = hoverIndex === i;
 
-          const itemSize = 40;
-          const radius = 150;
+    //     // hover 시 translateY 값을 늘려줌
+    //     const translateDistance = isHovered ? -hoverOffset : -offset;
 
-          const extraOffset = itemSize / 2;
-          const offset = radius - itemSize / 2 + extraOffset;
-
-          return (
-            <div
-              key={i}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500 text-white flex items-center justify-center text-sm "
-              style={{
-                width: `${itemSize}px`,
-                height: `${itemSize}px`,
-                transform: `rotate(${angle}deg) translateY(-${offset}px) rotate(-${angle}deg) `,
-                transformOrigin: "center",
-              }}
-            >
-              {i + 1}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    //     return (
+    //       <div
+    //         key={i}
+    //         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white flex items-center justify-center text-sm cursor-pointer rounded-full transition-transform duration-300"
+    //         style={{
+    //           width: `${itemSize}vw`,
+    //           aspectRatio: "1 / 1",
+    //           transform: `
+    //             rotate(${angle}deg)
+    //             translateY(${translateDistance}vw)
+    //           `,
+    //           transformOrigin: "center",
+    //         }}
+    //         onMouseEnter={() => setHoverIndex(i)}
+    //         onMouseLeave={() => setHoverIndex(null)}
+    //       >
+    //         {genres[i]?.name ?? i + 1}
+    //       </div>
+    //     );
+    //   })}
+    // </div>
   );
 };
 

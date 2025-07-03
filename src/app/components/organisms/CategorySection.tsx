@@ -7,15 +7,17 @@ import { GenreResponse } from "@/app/category/page";
 
 const CategorySection = ({ data }: { data: GenreResponse }) => {
   const [selected, setSelected] = useState<number>(28);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const isDown = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
-
+  if (!data) return;
   const onMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
     isDown.current = true;
-    startX.current = e.pageX - (scrollRef.current?.offsetLeft || 0);
-    scrollLeft.current = scrollRef.current?.scrollLeft || 0;
+
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
   };
 
   const onMouseLeaveOrUp = () => {
@@ -25,15 +27,16 @@ const CategorySection = ({ data }: { data: GenreResponse }) => {
   const onMouseMove = (e: React.MouseEvent) => {
     if (!isDown.current || !scrollRef.current) return;
     e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
+    const scroll = scrollRef.current;
+    const x = e.pageX - scroll.offsetLeft;
     const walk = x - startX.current;
-    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+    scroll.scrollLeft = scrollLeft.current - walk;
   };
 
   return (
     <section>
       <div
-        className={`relative h-[25vh] min-h-fit flex items-center justify-center gap-[1rem] `}
+        className={`relative h-[25vh] min-h-[500px] flex items-center justify-center gap-[1rem] `}
       >
         {data.genres.map(({ id, name }) => (
           <Link
