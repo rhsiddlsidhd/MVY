@@ -1,5 +1,5 @@
-import { getFilteredMovies } from "@/app/services/movie";
-import { TMDBBaseResponse } from "@/app/utils";
+import { getFilteredMovies } from "@/app/_services/movie";
+import { TMDBBaseResponse } from "@/app/_utils";
 
 interface CategoryDetailResponse extends TMDBBaseResponse {
   page: number;

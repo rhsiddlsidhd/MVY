@@ -1,6 +1,6 @@
-import { getMovieGenres } from "../services/movie";
-import List from "../components/List";
-import { TMDBBaseResponse } from "../utils";
+import { getMovieGenres } from "../_services/movie";
+import List from "../_components/List";
+import { TMDBBaseResponse } from "../_utils";
 
 export interface GenreResponse extends TMDBBaseResponse {
   genres: { id: number; name: string }[];

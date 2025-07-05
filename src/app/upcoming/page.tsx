@@ -1,4 +1,4 @@
-import { TMDBBaseResponse } from "../utils";
+import { TMDBBaseResponse } from "../_utils";
 
 export type MovieList = {
   adult: boolean;
