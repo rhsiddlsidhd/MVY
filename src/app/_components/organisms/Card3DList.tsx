@@ -14,7 +14,6 @@ const Card3DList = ({
   count?: number;
   className?: string;
 }) => {
-  console.log("3D");
   return (
     <>
       {data.results.slice(0, count).map((movie, i) => {

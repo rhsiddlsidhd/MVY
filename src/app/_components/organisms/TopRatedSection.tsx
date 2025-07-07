@@ -1,7 +1,6 @@
 import { MovieGenreResponse, MovieListResponse } from "@/app/upcoming/page";
 import React from "react";
 import Card3DList from "./Card3DList";
-import Text from "../atoms/Text";
 
 const TopRatedSection = ({
   data,
@@ -11,30 +10,15 @@ const TopRatedSection = ({
   genreRes: MovieGenreResponse;
 }) => {
   return (
-    <section>
-      <div className="flex flex-wrap justify-between gap-[1rem] ">
-        <Card3DList
-          data={data}
-          genreRes={genreRes}
-          count={8}
-          className="w-[calc(100%/4-1.5rem)] min-w-[10rem] aspect-[3/4] "
-        />
-      </div>
+    <section className="flex flex-wrap justify-between gap-[1rem]">
+      <Card3DList
+        data={data}
+        genreRes={genreRes}
+        count={8}
+        className="w-[calc((100%-3rem)/4)] min-w-[14rem] aspect-[3/4] max-sm:w-full max-sm:aspect-[16/9]"
+      />
     </section>
   );
 };
 
 export default TopRatedSection;
-
-/**
- * {data.results.slice(0, 8).map((movie, i) => {
-        return (
-          <Card3D
-            key={i}
-            data={movie}
-            genreRes={genreRes}
-            className="inline-block w-[calc(100%/4-1.5rem)] min-w-[10rem] aspect-[3/4]"
-          />
-        );
-      })}
- */

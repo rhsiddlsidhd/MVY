@@ -68,18 +68,12 @@ const Card3D = ({ data, genreRes, className }: Card3DProps) => {
       className={`${className} perspective-distant cursor-pointer`}
     >
       <div
-        className="w-full h-full transition-transform duration-100 ease-out transform-3d"
-        style={{
-          transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
-        }}
+        className={`w-full h-full transition-transform duration-100 ease-out transform-3d rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`}
       >
         <div
           className={`w-full h-full relative transition-transform duration-[800ms] transform-3d ${
             isFlipped ? "rotate-y-180" : ""
           }`}
-          style={{
-            transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          }}
         >
           {/* Front Face */}
           <div
@@ -88,16 +82,15 @@ const Card3D = ({ data, genreRes, className }: Card3DProps) => {
               backgroundImage: `url(https://image.tmdb.org/t/p/original${backdrop_path})`,
             }}
           >
-            <div
-              className={`w-[30%] max-sm:w-[50%] h-[10%]  flex gap-1 items-center justify-end absolute top-[0.5rem] right-[2vw] `}
-            >
+            <div className="w-[100%] h-[2rem] flex gap-1 items-center justify-end absolute top-0">
               {isNewRelease(release_date) && (
-                <Badge className="flex-1 h-full flex-grow-0 text-[1vw] text-white font-bold bg-[#c63bc6f3] rounded-full">
+                <Badge className="flex-grow-0 h-full min-w-0 aspect-square flex items-center justify-center text-xs text-white font-bold bg-[#c63bc6f3] rounded-full">
                   New
                 </Badge>
               )}
+
               {adult && (
-                <Badge className="flex-1 h-full flex-grow-0 text-[1vw] text-white font-bold bg-[red] rounded-full">
+                <Badge className="flex-grow-0 h-full min-w-0 aspect-square flex items-center justify-center text-xs text-white font-bold bg-[red] rounded-full">
                   19
                 </Badge>
               )}
@@ -109,13 +102,8 @@ const Card3D = ({ data, genreRes, className }: Card3DProps) => {
           </div>
 
           {/* Back Face */}
-          <div
-            className="absolute w-full h-full rounded-[15px] flex flex-col justify-center items-center p-5 bg-black/50 text-white backface-hidden "
-            style={{
-              transform: "rotateY(180deg)",
-            }}
-          >
-            <div className="bg-black/50 p-5 rounded-lg text-center overflow-scroll scrollbar-hide">
+          <div className="absolute w-full h-full rounded-[15px] p-5 bg-black/50 text-white backface-hidden overflow-scroll scrollbar-hide rotate-y-180">
+            <div className="h-full bg-black/50 p-5 rounded-lg text-center  overflow-scroll scrollbar-hide ">
               <p className="text-base">
                 {overview !== "" ? overview : "줄거리 정보가 없습니다."}
               </p>
