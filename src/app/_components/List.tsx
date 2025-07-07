@@ -9,11 +9,17 @@ interface GenreResponse {
 }
 
 const List = ({ genres }: { genres: GenreResponse[] }) => {
-  const containerSize = 80;
-  const itemSize = 10;
+  // const containerSize = 65;
+  // const itemSize = containerSize * 0.1;
+
+  // const offset = radius - itemSize / 2;
+
+  const containerSize = 65; // vw
+  const itemSize = 10 - 3; // vw (여유분 반영)
+  const offset = containerSize / 2 - itemSize / 2; // vw 단위
+  const offsetPx = 1024 / 2 - (1024 * (itemSize / containerSize)) / 2; // px 단위
   const radius = containerSize / 2;
-  const offset = radius - itemSize / 2;
-  const hoverOffset = offset + 5;
+  const hoverOffset = offset + 1;
 
   const itemCount = 19;
   const startAngle = 0;
@@ -43,10 +49,35 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
   const translateY = scrollProgress * 40; // vw 단위
 
   return (
-    <div className="h-[200vh] border-2">
+    <div className="h-[200vh] ">
       {/* 스크롤을 위해 높이를 늘림 */}
       <div className="fixed inset-0 flex justify-center items-center overflow-hidden">
-        <div
+        <ul
+          className={`relative border-2 w-[${containerSize}vw] max-w-[1024px] aspect-1/1 flex items-center justify-center rounded-4xl`}
+        >
+          {Array.from({ length: itemCount }).map((_, i) => {
+            const angle = startAngle + angleStep * i;
+            const isHovered = hoverIndex === i;
+            return (
+              <li
+                key={i}
+                className={`border-2 border-white absolute w-[calc(10%-1vw)] aspect-3/4 text-center`}
+                // style={
+                //   {
+                //     transform: `translateX(-50%) translateY(${-offset}vw) rotate(${angle}deg) `,
+                //   }
+                // }
+                style={{
+                  transform: ` rotate(${angle}deg) translateY(min(${offset}vw,${offsetPx}px))`,
+                }}
+                // translateY(-min(${offsetPx}vw, ${offsetPx}px)
+              >
+                {i}
+              </li>
+            );
+          })}
+        </ul>
+        {/* <div
           className="fixed"
           style={{
             width: `${containerSize}vw`,
@@ -83,6 +114,7 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
                 hoverIndex={isHovered}
                 onMouseEnter={() => setHoverIndex(i)}
                 onMouseLeave={() => setHoverIndex(null)}
+                itemSize={itemSize}
                 // style={{
                 //   opacity,
                 //   transition: 'opacity 0.3s ease-out'
@@ -90,7 +122,7 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
               />
             );
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -14,8 +14,8 @@ const TopRatedSection = ({
       <Card3DList
         data={data}
         genreRes={genreRes}
-        count={8}
-        className="w-[calc((100%-3rem)/4)]  aspect-[3/4] max-xl:w-[calc((100%-2rem)/3)] max-md:w-[calc((100%-1rem)/2)] max-sm:w-full max-sm:aspect-[16/9]"
+        count={4}
+        className="w-[calc((100%-3rem)/4)]  aspect-[3/4] max-xl:w-[calc((100%-1rem)/2)]  max-sm:w-full max-sm:aspect-[16/9]"
       />
     </section>
   );
