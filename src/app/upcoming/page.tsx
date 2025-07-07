@@ -62,15 +62,7 @@ const Upcoming = async () => {
   //   getMovieGenres<GenreResponse>(),
   // ]);
 
-  return (
-    <div className="h-[100vh] flex justify-center items-center">
-      {/* <Card3D
-          data={movie}
-          genreMap={genreMap}
-          className="w-[50%] aspect-[16/9]"
-        /> */}
-    </div>
-  );
+  return <div className="h-[100vh] flex justify-center items-center"></div>;
 };
 
 export default Upcoming;
