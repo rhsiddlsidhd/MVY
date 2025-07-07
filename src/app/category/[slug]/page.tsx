@@ -34,7 +34,7 @@ const CategoryDetailPage = async ({
 
   return (
     <div>
-      <h1>카테고리 리스트 페이지</h1>
+      <p className="border-2">카테고리 리스트 페이지</p>
       <ul>
         {data.results.map((movie, i) => {
           return (

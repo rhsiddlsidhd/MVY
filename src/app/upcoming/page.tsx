@@ -64,7 +64,6 @@ const Upcoming = async () => {
     getMovieGenres<GenreResponse>(),
   ]);
 
-  console.log(movieRes);
   return (
     <div className="h-[100vh] flex justify-center items-center">
       {/* <Card3D

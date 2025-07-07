@@ -29,7 +29,7 @@ const Home = async () => {
     return <div>Loading</div>;
 
   return (
-    <div className="flex flex-col gap-[3rem]">
+    <div className="p-[5vw] flex flex-col gap-[3rem]">
       <TrailerSection data={trailerKeys[0]} />
       <TopRatedSection data={topRated} genreRes={genreRes} />
       <CategorySection data={genreRes} />

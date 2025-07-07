@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Card from "./atoms/Card";
 
 interface GenreResponse {
   id: number;
@@ -15,51 +16,81 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
   const hoverOffset = offset + 5;
 
   const itemCount = 19;
-  const startAngle = 270;
-  const endAngle = 90;
+  const startAngle = 0;
+  const endAngle = 360;
 
-  const angleStep = ((endAngle + 360 - startAngle) % 360) / (itemCount - 1);
+  const angleStep = (endAngle - startAngle) / itemCount;
 
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0); // 0에서 1까지
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = window.innerHeight; // 한 화면 높이만큼 스크롤 시 최대
+      const progress = Math.min(scrollY / maxScroll, 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 스크롤에 따른 확대 비율 (1배에서 3배까지)
+  const scale = 1 + scrollProgress * 2;
+
+  // 스크롤에 따른 Y축 이동 (하단으로 이동)
+  const translateY = scrollProgress * 40; // vw 단위
 
   return (
-    <div className="h-dvh flex justify-center items-center">
-      <div
-        className="fixed bottom-0"
-        style={{
-          width: `${containerSize}vw`,
-          aspectRatio: "1 / 1",
-          border: "2px solid black",
-          borderRadius: "50%",
-        }}
-      >
-        {Array.from({ length: itemCount }).map((_, i) => {
-          const angle = startAngle + angleStep * i;
-          const isHovered = hoverIndex === i;
+    <div className="h-[200vh] border-2">
+      {/* 스크롤을 위해 높이를 늘림 */}
+      <div className="fixed inset-0 flex justify-center items-center overflow-hidden">
+        <div
+          className="fixed"
+          style={{
+            width: `${containerSize}vw`,
+            aspectRatio: "1 / 1",
+            border: "2px solid black",
+            transform: `translateY(calc(-50% + ${translateY}vw)) scale(${scale})`,
+            top: "50%",
+            borderRadius: "50%",
+            transformOrigin: "center top", // 위쪽 중심으로 확대
+          }}
+        >
+          {Array.from({ length: itemCount }).map((_, i) => {
+            const angle = startAngle + angleStep * i;
+            const isHovered = hoverIndex === i;
 
-          // hover 시 translateY 값을 늘려줌
-          const translateDistance = isHovered ? -hoverOffset : -offset;
+            // hover 시 translateY 값을 늘려줌
+            const translateDistance = isHovered ? -hoverOffset : -offset;
 
-          return (
-            <div
-              key={i}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white flex items-center justify-center text-sm cursor-pointer rounded-full transition-transform duration-300"
-              style={{
-                width: `${itemSize}vw`,
-                aspectRatio: "1 / 1",
-                transform: `
-                rotate(${angle}deg)
-                translateY(${translateDistance}vw)
-              `,
-                transformOrigin: "center",
-              }}
-              onMouseEnter={() => setHoverIndex(i)}
-              onMouseLeave={() => setHoverIndex(null)}
-            >
-              {genres[i]?.name ?? i + 1}
-            </div>
-          );
-        })}
+            // 아이템이 상단 6개 영역에 있는지 확인 (약 180도 범위)
+            const normalizedAngle = ((angle % 360) + 360) % 360;
+            const isInVisibleRange = normalizedAngle <= 180;
+
+            // 스크롤이 진행될수록 하단 아이템들을 페이드아웃
+            const opacity = isInVisibleRange
+              ? 1
+              : Math.max(0, 1 - scrollProgress * 2);
+
+            return (
+              <Card
+                key={i}
+                angle={angle}
+                translateDistance={translateDistance}
+                name={genres[i].name ?? i + 1}
+                hoverIndex={isHovered}
+                onMouseEnter={() => setHoverIndex(i)}
+                onMouseLeave={() => setHoverIndex(null)}
+                // style={{
+                //   opacity,
+                //   transition: 'opacity 0.3s ease-out'
+                // }}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
