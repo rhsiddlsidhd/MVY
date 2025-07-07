@@ -8,7 +8,10 @@ import {
 import { GenreResponse } from "./category/page";
 import { MovieListResponse } from "./upcoming/page";
 
-import HomeSection from "./_components/templates/HomeSection";
+import TrailerSection from "./_components/organisms/TrailerSection";
+import TopRatedSection from "./_components/organisms/TopRatedSection";
+import CategorySection from "./_components/organisms/CategorySection";
+import PopularSection from "./_components/organisms/PopularSection";
 
 const Home = async () => {
   const popularData = getPopularMovies<MovieListResponse>();
@@ -22,15 +25,16 @@ const Home = async () => {
     trailerKeysData,
   ]);
 
-  if (!genreRes || !popular || !topRated || !trailerKeys) return;
+  if (!genreRes || !popular || !topRated || !trailerKeys)
+    return <div>Loading</div>;
 
   return (
-    <HomeSection
-      popular={popular}
-      genreRes={genreRes}
-      topRated={topRated}
-      trailerKeys={trailerKeys}
-    />
+    <div className="flex flex-col gap-[3rem]">
+      <TrailerSection data={trailerKeys[0]} />
+      <TopRatedSection data={topRated} genreRes={genreRes} />
+      <CategorySection data={genreRes} />
+      <PopularSection genreRes={genreRes} data={popular} />
+    </div>
   );
 };
 

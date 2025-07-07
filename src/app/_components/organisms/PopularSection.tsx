@@ -14,7 +14,8 @@ const PopularSection = ({
       <Card3DList
         data={data}
         genreRes={genreRes}
-        className="w-[calc(100%/2-0.5rem)] aspect-[16/9]"
+        count={4}
+        className="w-[calc((100%-1rem)/2)] max-sm:w-full aspect-[16/9] max-sm:aspect-[3/4]"
       />
     </section>
   );
