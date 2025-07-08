@@ -12,12 +12,13 @@ const Img = ({
   className?: string;
 }) => {
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_IMAGE_URL;
+
   return (
     <Image
       className={`${className} `}
       alt={alt}
       src={`${baseUrl}/${src}`}
-      fill
+      fill={true}
       sizes="100%"
       priority={true}
     />

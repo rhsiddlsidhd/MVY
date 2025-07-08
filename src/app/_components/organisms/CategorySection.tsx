@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import CategoryDisplay from "../molecules/CategoryDisplay";
 import CategoryScrollMenu from "../molecules/CategoryScrollMenu";
