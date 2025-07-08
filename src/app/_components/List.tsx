@@ -73,68 +73,19 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
             return (
               <li
                 key={i}
-                className={`border-2 border-white absolute w-[calc(10%-1rem)] max-lg:w-[calc(10%-0.5rem)] max-lg:bg-amber-200 max-md:w-[10%-0.25rem] aspect-3/4 text-center cursor-pointer rounded-2xl `}
+                className={`absolute flex items-center justify-center w-[calc(10%-1rem)] max-lg:w-[calc(10%-0.5rem)]  max-md:w-[10%-0.25rem] aspect-3/4 text-center cursor-pointer rounded-2xl text-[min(0.725vw,1rem)] p-[0.1rem]`}
                 style={{
-                  transform: `rotate(${angle}deg) translateY(min(max(${offset}vw,${minOffsetPx}px),${offsetPx}px)) rotate(${-angle}deg)`,
                   perspective: "800px",
+                  transform: `rotate(${angle}deg) translateY(min(max(${offset}vw,${minOffsetPx}px),${offsetPx}px)) rotate(${-angle}deg)`,
                 }}
+                onMouseEnter={() => setHoverIndex(i)}
+                onMouseLeave={() => setHoverIndex(null)}
               >
-                <Card
-                  name={genres[i].name ?? i + 1}
-                  hoverIndex={isHovered}
-                  onMouseEnter={() => setHoverIndex(i)}
-                  onMouseLeave={() => setHoverIndex(null)}
-                />
+                <Card name={genres[i].name ?? i + 1} hoverIndex={isHovered} />
               </li>
             );
           })}
         </ul>
-        {/* <div
-          className="fixed"
-          style={{
-            width: `${containerSize}vw`,
-            aspectRatio: "1 / 1",
-            border: "2px solid black",
-            transform: `translateY(calc(-50% + ${translateY}vw)) scale(${scale})`,
-            top: "50%",
-            borderRadius: "50%",
-            transformOrigin: "center top", // 위쪽 중심으로 확대
-          }}
-        >
-          {Array.from({ length: itemCount }).map((_, i) => {
-            const angle = startAngle + angleStep * i;
-            const isHovered = hoverIndex === i;
-
-            // hover 시 translateY 값을 늘려줌
-            const translateDistance = isHovered ? -hoverOffset : -offset;
-
-            // 아이템이 상단 6개 영역에 있는지 확인 (약 180도 범위)
-            const normalizedAngle = ((angle % 360) + 360) % 360;
-            const isInVisibleRange = normalizedAngle <= 180;
-
-            // 스크롤이 진행될수록 하단 아이템들을 페이드아웃
-            const opacity = isInVisibleRange
-              ? 1
-              : Math.max(0, 1 - scrollProgress * 2);
-
-            return (
-              <Card
-                key={i}
-                angle={angle}
-                translateDistance={translateDistance}
-                name={genres[i].name ?? i + 1}
-                hoverIndex={isHovered}
-                onMouseEnter={() => setHoverIndex(i)}
-                onMouseLeave={() => setHoverIndex(null)}
-                itemSize={itemSize}
-                // style={{
-                //   opacity,
-                //   transition: 'opacity 0.3s ease-out'
-                // }}
-              />
-            );
-          })}
-        </div> */}
       </div>
     </div>
   );

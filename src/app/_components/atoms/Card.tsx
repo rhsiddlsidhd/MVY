@@ -3,44 +3,20 @@
 import React from "react";
 
 export interface CardProps {
-  angle?: number;
   name: string;
-  translateDistance?: number;
-  itemSize?: number;
-  hoverIndex?: boolean;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  style?: React.CSSProperties;
+  hoverIndex: boolean;
 }
 
-const Card = ({
-  angle,
-  name,
-  translateDistance,
-  hoverIndex,
-  itemSize,
-  onMouseEnter,
-  onMouseLeave,
-  style,
-}: CardProps) => {
+const Card = ({ name, hoverIndex }: CardProps) => {
   return (
     <div
-      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex items-center justify-center text-xs cursor-pointer rounded-3xl`}
+      className={`relative w-full h-full`}
       style={{
-        width: `max(${itemSize}%, 5rem)`,
-        aspectRatio: "1 / 1",
-        transform: `rotate(${angle}deg) translateY(${translateDistance}vw)`,
-        // transform: `rotate(${angle}deg) translateY(300%)`,
-        // transform: `rotate(${angle}deg) translateY(200%)`,
-        transformOrigin: "center",
         perspective: "800px",
-        ...style,
       }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
     >
       <div
-        className="relative w-full h-full  transition-transform duration-500"
+        className="w-full h-full transition-transform duration-500"
         style={{
           transformStyle: "preserve-3d",
           transform: hoverIndex ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -50,7 +26,7 @@ const Card = ({
       >
         {/* front */}
         <div
-          className="absolute w-full h-full flex items-center justify-center bg-[#B7B508] text-white rounded-3xl text-nowrap"
+          className="absolute inset-0 w-full h-full flex items-center justify-center text-white rounded-xl shadow-lg bg-[#B7B508]"
           style={{
             backfaceVisibility: "hidden",
           }}
@@ -59,7 +35,7 @@ const Card = ({
         </div>
         {/* back */}
         <div
-          className="absolute w-full h-full flex items-center justify-center bg-[#B7B508] text-white rounded-3xl"
+          className="absolute inset-0 w-full h-full flex items-center justify-center text-white rounded-xl shadow-lg bg-[#222]"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
