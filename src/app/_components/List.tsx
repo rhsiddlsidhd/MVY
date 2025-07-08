@@ -57,7 +57,7 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
   const translateY = scrollProgress * 40; // vw 단위
 
   //Gesture 만들기
-  const circleRef = useRef<HTMLDivElement | null>(null);
+  const circleRef = useRef<HTMLUListElement | null>(null);
 
   // 마우스/터치 위치에서 각도 계산
   const getAngleFromPoint = (
@@ -161,6 +161,7 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
         <ul
           className={`relative border-2 max-w-[1024px] min-w-[280px] aspect-1/1 flex items-center justify-center rounded-4xl`}
           style={{ width: `${containerSize}vw` }}
+          ref={circleRef}
         >
           {genres.map(({ id, name }, i) => {
             const angle = startAngle + angleStep * i + rotation; // rotation을 각 아이템의 angle에 더함
