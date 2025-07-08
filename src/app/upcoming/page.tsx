@@ -17,7 +17,11 @@ export type MovieList = {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  [key: string]: unknown;
+};
+
+// 장르 정보가 포함된 확장 타입 (genre_ids 제거)
+export type MovieWithGenres = Omit<MovieList, "genre_ids"> & {
+  genres: Genre[];
 };
 
 export interface MovieListResponse extends TMDBBaseResponse {
@@ -40,7 +44,7 @@ export interface MovieVideosResponse extends TMDBBaseResponse {
   results: MovieVideos[];
 }
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
 }

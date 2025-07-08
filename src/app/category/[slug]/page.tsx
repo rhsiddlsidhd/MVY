@@ -1,27 +1,7 @@
-import { getFilteredMovies } from "@/app/_services/movie";
-import { TMDBBaseResponse } from "@/app/_utils";
-
-interface CategoryDetailResponse extends TMDBBaseResponse {
-  page: number;
-  results: {
-    adult: boolean;
-    backdrop_path: string | null;
-    genre_ids: number[];
-    id: number;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string | null;
-    release_date: string;
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-  }[];
-  total_pages: number;
-  total_results: number;
-}
+import { getFilteredMovies, getMovieGenres } from "@/app/_services/movie";
+import { GenreResponse } from "../page";
+import { Genre, MovieListResponse, MovieWithGenres } from "@/app/upcoming/page";
+import BannerList from "@/app/_components/organisms/BannerList";
 
 const CategoryDetailPage = async ({
   params,
@@ -30,24 +10,21 @@ const CategoryDetailPage = async ({
 }) => {
   const { slug } = await params;
 
-  const data = await getFilteredMovies<CategoryDetailResponse>(Number(slug));
+  const categoryDetailRes = getFilteredMovies<MovieListResponse>(Number(slug));
+  const genreRes = getMovieGenres<GenreResponse>();
+  const [data, genreData] = await Promise.all([categoryDetailRes, genreRes]);
 
-  return (
-    <div>
-      <p className="border-2">카테고리 리스트 페이지</p>
-      <ul>
-        {data.results.map((movie, i) => {
-          return (
-            <li key={i}>
-              <a href={`/detail/${movie.id}`}>
-                <h2>{movie.title}</h2>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+  const moviesWithGenres: MovieWithGenres[] = data.results.map((movie) => {
+    const { genre_ids, ...movieWithoutGenreIds } = movie;
+    return {
+      ...movieWithoutGenreIds,
+      genres: genre_ids
+        .map((id) => genreData?.genres.find((genre) => genre.id === id))
+        .filter(Boolean) as Genre[],
+    };
+  });
+
+  return <BannerList data={moviesWithGenres} />;
 };
 
 export default CategoryDetailPage;

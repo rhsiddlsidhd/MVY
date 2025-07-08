@@ -281,10 +281,11 @@ export const getFilteredMovies = async <T extends TMDBBaseResponse>(
   const include_video = true;
   const sort_by = "popularity.desc";
 
-  const url = `${baseUrl}/discover/movie?genre=${genre}&include_adult=${include_adult}&include_video=${include_video}&language=${language}&sort_by=${sort_by}&page=${page}`;
+  // const url = `${baseUrl}/discover/movie?genre=${genre}&include_adult=${include_adult}&include_video=${include_video}&language=${language}&sort_by=${sort_by}&page=${page}`;
+
+  const url = `${baseUrl}/discover/movie?include_adult=${include_adult}&include_video=${include_video}&language=${language}&sort_by=${sort_by}&with_genres=${genre}&page=${page}`;
 
   const res = await fetch(url, options);
-
   if (res.status === 404) {
     const message = await res.json().then((error) => error.status_message);
     throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
