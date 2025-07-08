@@ -3,10 +3,10 @@
 import React from "react";
 
 export interface CardProps {
-  angle: number;
+  angle?: number;
   name: string;
-  translateDistance: number;
-  itemSize: number;
+  translateDistance?: number;
+  itemSize?: number;
   hoverIndex?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -25,7 +25,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <div
-      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex items-center justify-center text-sm cursor-pointer rounded-3xl`}
+      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex items-center justify-center text-xs cursor-pointer rounded-3xl`}
       style={{
         width: `max(${itemSize}%, 5rem)`,
         aspectRatio: "1 / 1",
