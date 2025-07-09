@@ -1,6 +1,6 @@
 import { getMovieGenres, getNowPlayingMovies } from "../_services/movie";
 import { TMDBBaseResponse } from "../_utils";
-import { GenreResponse } from "../category/page";
+import { Genre, GenreResponse } from "../_contexts/GenreContext";
 
 export type MovieList = {
   adult: boolean;
@@ -19,17 +19,12 @@ export type MovieList = {
   vote_count: number;
 };
 
-// 장르 정보가 포함된 확장 타입 (genre_ids 제거)
-export type MovieWithGenres = Omit<MovieList, "genre_ids"> & {
-  genres: Genre[];
-};
-
 export interface MovieListResponse extends TMDBBaseResponse {
-  dates: { maximum: string; minimum: string };
   page: number;
   results: MovieList[];
   total_pages: number;
   total_results: number;
+  dates?: { maximum: string; minimum: string };
 }
 
 interface MovieVideos {
@@ -42,14 +37,6 @@ interface MovieVideos {
 export interface MovieVideosResponse extends TMDBBaseResponse {
   id: number;
   results: MovieVideos[];
-}
-
-export interface Genre {
-  id: number;
-  name: string;
-}
-export interface MovieGenreResponse extends TMDBBaseResponse {
-  genres: Genre[];
 }
 
 export interface TrailerKeysResponse extends TMDBBaseResponse {

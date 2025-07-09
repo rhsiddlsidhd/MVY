@@ -4,19 +4,23 @@ import React, { useState } from "react";
 
 import CategoryDisplay from "../molecules/CategoryDisplay";
 import CategoryScrollMenu from "../molecules/CategoryScrollMenu";
-import { GenreResponse } from "@/app/category/page";
+import { useGenre } from "../../_contexts/GenreContext";
 
-const CategorySection = ({ data }: { data: GenreResponse }) => {
+const CategorySection = () => {
   const [selected, setSelected] = useState<number>(28);
-
+  const data = useGenre();
   return (
     <section>
-      <CategoryDisplay data={data} selected={selected} />
-      <CategoryScrollMenu
-        data={data}
-        selected={selected}
-        onClick={(id: number) => setSelected(id)}
-      />
+      {data && (
+        <>
+          <CategoryDisplay data={data} selected={selected} />
+          <CategoryScrollMenu
+            data={data}
+            selected={selected}
+            onClick={(id: number) => setSelected(id)}
+          />
+        </>
+      )}
     </section>
   );
 };

@@ -1,36 +1,58 @@
 "use client";
 
-import { MovieWithGenres } from "@/app/upcoming/page";
+import { MovieList, MovieListResponse } from "@/app/upcoming/page";
 import React, { useEffect, useRef, useState } from "react";
 import Banner from "../atoms/Banner";
+import Link from "next/link";
+import { getFilteredMovies } from "@/app/_services/movie";
 
-const BannerList = ({ data }: { data: MovieWithGenres[] }) => {
+const BannerList = ({
+  data,
+  slug,
+  totalPage,
+}: {
+  data: MovieList[];
+  slug: number;
+  totalPage: number;
+}) => {
   const containerRef = useRef<HTMLHRElement | null>(null);
+  const [bannerData, setBannerData] = useState<MovieList[]>(data);
   const [page, setPage] = useState<number>(1);
-  const [bannerData, setBannerData] = useState<MovieWithGenres[]>([]);
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const intersectionObserver = new IntersectionObserver((entries) => {
+
+    const observer = new IntersectionObserver((entries) => {
       entries.map((entry) => {
-        if (entry.isIntersecting) setPage((prev) => prev + 1);
+        if (entry.isIntersecting && page < totalPage)
+          setPage((prev) => prev + 1);
       });
     });
-    intersectionObserver.observe(containerRef.current);
+    observer.observe(containerRef.current);
+    return () => {
+      if (observer) observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
-    console.log(page);
+    if (page === 1) return;
+    const fetchFilteredMovies = async () => {
+      const res = await getFilteredMovies<MovieListResponse>(slug, page);
+      if (!res) return;
+      setBannerData((prev) => [...prev, ...res.results]);
+    };
+
+    fetchFilteredMovies();
   }, [page]);
 
   return (
-    <ul className=" relative">
-      {data.map((movie, i) => {
+    <ul className="relative pt-[5vw]">
+      {bannerData.map((movie, i) => {
         return (
-          <li key={i}>
-            <a href={`/detail/${movie.id}`}>
-              <Banner data={movie} />
-            </a>
+          <li key={movie.id}>
+            <Link href={`/detail/${movie.id}`}>
+              <Banner data={movie} isEven={i % 2 === 0} />
+            </Link>
           </li>
         );
       })}

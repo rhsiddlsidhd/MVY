@@ -1,16 +1,16 @@
 "use client";
-import { MovieGenreResponse, MovieListResponse } from "@/app/upcoming/page";
+import { MovieListResponse } from "@/app/upcoming/page";
 import React from "react";
 import Card3D from "../atoms/Card3D";
+import { GenreResponse } from "../../_contexts/GenreContext";
+import { useGenre } from "../../_contexts/GenreContext";
 
 const Card3DList = ({
   data,
-  genreRes,
   count = 4,
   className,
 }: {
   data: MovieListResponse;
-  genreRes: MovieGenreResponse;
   count?: number;
   className?: string;
 }) => {
@@ -21,7 +21,6 @@ const Card3DList = ({
           <Card3D
             key={i}
             data={movie}
-            genreRes={genreRes}
             className={`inline-block ${className}`}
           />
         );

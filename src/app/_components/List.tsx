@@ -3,13 +3,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Card from "./atoms/Card";
 import Link from "next/link";
+import { useGenre } from "../_contexts/GenreContext";
 
-interface GenreResponse {
-  id: number;
-  name: string;
-}
+const List = () => {
+  const genre = useGenre();
 
-const List = ({ genres }: { genres: GenreResponse[] }) => {
   const containerSize = 65;
   const itemRatio = 0.1;
   const itemSize = containerSize * itemRatio;
@@ -151,7 +149,7 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
     <div className="h-[200vh] ">
       {/* 스크롤을 위해 높이를 늘림 */}
       <div
-        className="fixed border-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
           transform: `translateY(${translateY}%) scale(${scale})`,
           transformOrigin: "center top",
@@ -159,28 +157,37 @@ const List = ({ genres }: { genres: GenreResponse[] }) => {
         }}
       >
         <ul
-          className={`relative border-2 max-w-[1024px] min-w-[280px] aspect-1/1 flex items-center justify-center rounded-4xl`}
+          className={`relative max-w-[1024px] min-w-[280px] aspect-1/1 flex items-center justify-center rounded-full cursor-grabbing`}
           style={{ width: `${containerSize}vw` }}
           ref={circleRef}
+          onMouseDown={handleCircle}
+          onTouchStart={handleCircle}
         >
-          {genres.map(({ id, name }, i) => {
-            const angle = startAngle + angleStep * i + rotation; // rotation을 각 아이템의 angle에 더함
-            const isHovered = hoverIndex === i;
-            return (
-              <li
-                key={i}
-                className={`absolute flex items-center justify-center w-[calc(10%-1rem)] max-lg:w-[calc(10%-0.5rem)]  max-md:w-[10%-0.25rem] aspect-3/4 text-center cursor-pointer rounded-2xl text-[min(0.725vw,1rem)] p-[0.1rem]`}
-                style={{
-                  perspective: "800px",
-                  transform: `rotate(${angle}deg) translateY(min(max(${offset}vw,${minOffsetPx}px),${offsetPx}px)) rotate(${-angle}deg)`,
-                }}
-                onMouseEnter={() => setHoverIndex(i)}
-                onMouseLeave={() => setHoverIndex(null)}
-              >
-                <Card name={genres[i].name ?? i + 1} hoverIndex={isHovered} />
-              </li>
-            );
-          })}
+          {genre &&
+            genre.map(({ id, ko, en }, i) => {
+              const angle = startAngle + angleStep * i + rotation; // rotation을 각 아이템의 angle에 더함
+              const isHovered = hoverIndex === i;
+              return (
+                <li
+                  key={i}
+                  className={`absolute flex items-center justify-center w-[calc(10%-1rem)] max-lg:w-[calc(10%-0.5rem)]  max-md:w-[10%-0.25rem] aspect-3/4 text-center rounded-2xl text-[min(0.725vw,1rem)] p-[0.1rem] cursor-pointer`}
+                  style={{
+                    perspective: "800px",
+                    transform: `rotate(${angle}deg) translateY(min(max(${offset}vw,${minOffsetPx}px),${offsetPx}px)) rotate(${-angle}deg)`,
+                  }}
+                  onMouseEnter={() => setHoverIndex(i)}
+                  onMouseLeave={() => setHoverIndex(null)}
+                >
+                  <Link href={`/category/${id}`} className="w-full h-full">
+                    <Card
+                      ko={ko ?? i + 1}
+                      en={en ?? i + 1}
+                      hoverIndex={isHovered}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>

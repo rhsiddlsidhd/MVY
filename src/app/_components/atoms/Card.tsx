@@ -3,11 +3,12 @@
 import React from "react";
 
 export interface CardProps {
-  name: string;
+  ko: string;
+  en: string;
   hoverIndex: boolean;
 }
 
-const Card = ({ name, hoverIndex }: CardProps) => {
+const Card = ({ ko, en, hoverIndex }: CardProps) => {
   return (
     <div
       className={`relative w-full h-full`}
@@ -31,7 +32,7 @@ const Card = ({ name, hoverIndex }: CardProps) => {
             backfaceVisibility: "hidden",
           }}
         >
-          {name}
+          {ko}
         </div>
         {/* back */}
         <div
@@ -41,7 +42,7 @@ const Card = ({ name, hoverIndex }: CardProps) => {
             transform: "rotateY(180deg)",
           }}
         >
-          eng
+          {en}
         </div>
       </div>
     </div>

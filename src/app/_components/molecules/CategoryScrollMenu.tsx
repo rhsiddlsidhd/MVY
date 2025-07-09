@@ -1,15 +1,15 @@
 "use client";
 
-import { GenreResponse } from "@/app/category/page";
 import React, { useRef } from "react";
 import Text from "../atoms/Text";
+import { MergedGenre } from "../../_contexts/GenreContext";
 
 const CategoryScrollMenu = ({
   data,
   selected,
   onClick,
 }: {
-  data: GenreResponse;
+  data: MergedGenre[];
   selected?: number;
   onClick?: (id: number) => void;
 }) => {
@@ -45,7 +45,7 @@ const CategoryScrollMenu = ({
       onMouseUp={onMouseLeaveOrUp}
       onMouseMove={onMouseMove}
     >
-      {data.genres.map(({ id, name }) => (
+      {data.map(({ id, ko }) => (
         <div
           className="relative pb-[0.5rem]"
           key={id}
@@ -56,7 +56,7 @@ const CategoryScrollMenu = ({
               selected === id ? "scale-100" : "scale-0"
             } duration-300 ease-in origin-bottom-left`}
           />
-          <Text className={`whitespace-nowrap text-white`}>{name}</Text>
+          <Text className={`whitespace-nowrap text-white`}>{ko}</Text>
         </div>
       ))}
     </div>

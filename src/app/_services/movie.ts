@@ -13,10 +13,9 @@ export const getNowPlayingMovies = <T extends TMDBBaseResponse>() =>
 export const getUpcomingMovies = <T extends TMDBBaseResponse>() =>
   fetchMovies<T>("/movie/now_playing");
 
-export const getMovieGenres = async <
-  T extends TMDBBaseResponse
->(): Promise<T | null> => {
-  const language = "ko";
+export const getMovieGenres = async <T extends TMDBBaseResponse>(
+  language: string = "ko"
+): Promise<T | null> => {
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
   const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const options = {
@@ -31,12 +30,9 @@ export const getMovieGenres = async <
 
   const res = await fetch(url, options);
   if (res.status === 404) {
-    // const message = await res.json().then((error) => error.status_message);
-    // throw new Error(message ?? `영화 정보를 찾을 수 없습니다`);
     return null;
   }
   if (!res.ok) {
-    // throw new Error(`API 요청중 실패하였습니다.`);
     return null;
   }
 

@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { MovieGenreResponse, MovieList } from "@/app/upcoming/page";
+import { MovieList } from "@/app/upcoming/page";
 import Badge from "./Badge";
+import { GenreResponse, useGenre } from "../../_contexts/GenreContext";
 
 interface Card3DProps {
   data: MovieList;
-  genreRes: MovieGenreResponse;
   className?: string;
 }
 
-const Card3D = ({ data, genreRes, className }: Card3DProps) => {
+const Card3D = ({ data, className }: Card3DProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
@@ -50,13 +50,16 @@ const Card3D = ({ data, genreRes, className }: Card3DProps) => {
   const { title, genre_ids, overview, backdrop_path, release_date, adult } =
     data;
 
+  const genresdata = useGenre();
+
   const genres = useMemo(
     () =>
-      genreRes.genres
+      genresdata &&
+      genresdata
         .filter(({ id }) => genre_ids.includes(id))
-        .map(({ name }) => name)
+        .map(({ ko }) => ko)
         .join(", "),
-    [genreRes.genres, genre_ids]
+    [genresdata, genre_ids]
   );
 
   return (
