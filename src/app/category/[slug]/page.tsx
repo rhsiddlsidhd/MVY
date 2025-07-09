@@ -1,4 +1,4 @@
-import { getFilteredMovies, getMovieGenres } from "@/app/_services/movie";
+import { getFilteredMovies } from "@/app/_services/movie";
 import { MovieListResponse } from "@/app/upcoming/page";
 import BannerList from "@/app/_components/organisms/BannerList";
 

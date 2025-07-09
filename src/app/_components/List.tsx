@@ -14,14 +14,12 @@ const List = () => {
   const offset = containerSize / 2 - itemSize / 2;
   const offsetPx = 1024 / 2 - (1024 * itemRatio) / 2; // px 단위
   const minOffsetPx = 280 / 2 - (280 * itemRatio) / 2;
+
   // 원 반지름 = containerSize / 2 - Item의 한 변 / 2
   // container maxSize = 1024 , size = 65vw , minSize = 280
   // Item size = containerSize * itemRatio 부모 요소의 10% === 0.1
   // 총 3가지의 경우를 고려하여 반지름을 계산한다.
   // 반지름의 길이만큼 Item이 떨어져야 한다. === translateY
-
-  const radius = containerSize / 2;
-  const hoverOffset = offset + 1;
 
   const itemCount = 19;
   const startAngle = 0;

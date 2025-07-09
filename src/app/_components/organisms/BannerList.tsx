@@ -17,41 +17,66 @@ const BannerList = ({
 }) => {
   const containerRef = useRef<HTMLHRElement | null>(null);
   const [bannerData, setBannerData] = useState<MovieList[]>(data);
-  const [page, setPage] = useState<number>(1);
+
+  // ref로 상태 관리
+  const pageRef = useRef<number>(1);
+  const isLoadingRef = useRef<boolean>(false);
+  const totalPageRef = useRef<number>(totalPage);
+
+  // totalPage가 변경될 때만 업데이트
+  useEffect(() => {
+    totalPageRef.current = totalPage;
+  }, [totalPage]);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
+    const fetchFilteredMovies = async () => {
+      if (pageRef.current === 1) return;
+
+      isLoadingRef.current = true;
+
+      try {
+        const res = await getFilteredMovies<MovieListResponse>(
+          slug,
+          pageRef.current
+        );
+        if (res) {
+          setBannerData((prev) => [...prev, ...res.results]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+      } finally {
+        isLoadingRef.current = false;
+      }
+    };
+
     const observer = new IntersectionObserver((entries) => {
-      entries.map((entry) => {
-        if (entry.isIntersecting && page < totalPage)
-          setPage((prev) => prev + 1);
+      entries.forEach((entry) => {
+        if (
+          entry.isIntersecting &&
+          pageRef.current < totalPageRef.current &&
+          !isLoadingRef.current
+        ) {
+          pageRef.current += 1;
+          fetchFilteredMovies();
+        }
       });
     });
+
     observer.observe(containerRef.current);
+
     return () => {
-      if (observer) observer.disconnect();
+      observer.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    if (page === 1) return;
-    const fetchFilteredMovies = async () => {
-      const res = await getFilteredMovies<MovieListResponse>(slug, page);
-      if (!res) return;
-      setBannerData((prev) => [...prev, ...res.results]);
-    };
-
-    fetchFilteredMovies();
-  }, [page]);
-
+  }, [slug]);
   return (
     <ul className="relative pt-[5vw]">
       {bannerData.map((movie, i) => {
         return (
           <li key={movie.id}>
             <Link href={`/detail/${movie.id}`}>
-              <Banner data={movie} isEven={i % 2 === 0} />
+              <Banner data={movie} isEven={i % 2 === 0} num={i + 1} />
             </Link>
           </li>
         );
