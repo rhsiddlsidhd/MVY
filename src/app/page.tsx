@@ -1,5 +1,4 @@
 import {
-  getMovieGenres,
   getPopularMovies,
   getTopRatedMovies,
   getTrailerKeysFromNowPlaying,
@@ -26,7 +25,7 @@ const Home = async () => {
   if (!popular || !topRated || !trailerKeys) return <div>Loading</div>;
 
   return (
-    <div className="p-[5vw] flex flex-col gap-[3rem]">
+    <div className="min-sm:p-[5vw] flex flex-col gap-[3rem]">
       <TrailerSection data={trailerKeys[0]} />
       <TopRatedSection data={topRated} />
       <CategorySection />

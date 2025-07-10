@@ -4,7 +4,7 @@ import "./globals.css";
 import Logo from "./_components/atoms/Logo";
 import SearchBarWithHamburger from "./_components/organisms/SearchBarWithHamburger";
 import { getMovieGenres } from "./_services/movie";
-import { Genre, GenreContext, GenreResponse } from "./_contexts/GenreContext";
+import { Genre, GenreResponse } from "./_contexts/GenreContext";
 import GenreProvider from "./_contexts/GenreProvider";
 
 const geistSans = Geist({
