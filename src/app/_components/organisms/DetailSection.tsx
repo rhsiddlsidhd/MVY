@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { MovieDetail } from "@/app/_types/movie";
 import Text from "../atoms/Text";
 import Img from "../atoms/Img";
-import { StarRateIcon } from "../atoms/Icon";
+import {
+  HandThumbUp,
+  PersonIcon,
+  StarRateIcon,
+  LanguageIcon,
+} from "../atoms/Icon";
 
 const DetailSection = ({ data }: { data: MovieDetail }) => {
   const [showAllCompanies, setShowAllCompanies] = useState(false);
@@ -277,23 +282,36 @@ const DetailSection = ({ data }: { data: MovieDetail }) => {
             <div className="space-y-3">
               <Text className="text-[#B7B508] font-bold text-lg">통계</Text>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <div className="bg-white/5 rounded-lg p-3 text-center space-y-1">
-                  <Text className="text-white/60 text-sm">투표수 </Text>
+                <div className="bg-white/5 rounded-lg p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <PersonIcon className="w-5 h-5 text-[#B7B508]" />
+                    <Text className="text-[#B7B508] font-bold text-sm">
+                      투표수
+                    </Text>
+                  </div>
                   <Text className="text-white font-bold text-sm">
                     {vote_count?.toLocaleString()}
                   </Text>
                 </div>
-                <div className="bg-white/5 rounded-lg p-3 text-center space-y-1">
-                  <Text className="text-white/60 text-sm">인기도 </Text>
+                <div className="bg-white/5 rounded-lg p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <HandThumbUp className="w-5 h-5 text-[#B7B508]" />
+                    <Text className="text-[#B7B508] font-bold text-sm">
+                      인기도
+                    </Text>
+                  </div>
                   <Text className="text-white font-bold text-sm">
                     {popularity?.toFixed(0)}
                   </Text>
                 </div>
                 {spoken_languages && spoken_languages.length > 0 && (
-                  <div className="bg-white/5 rounded-lg p-3 space-y-1 md:col-span-2">
-                    <Text className="text-[#B7B508] font-bold text-sm">
-                      사용 언어{" "}
-                    </Text>
+                  <div className="bg-white/5 rounded-lg p-3 md:col-span-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <LanguageIcon className="w-5 h-5 text-[#B7B508]" />
+                      <Text className="text-[#B7B508] font-bold text-sm">
+                        사용 언어
+                      </Text>
+                    </div>
                     <Text className="text-white/90 text-sm">
                       {spoken_languages
                         .slice(0, 3)
