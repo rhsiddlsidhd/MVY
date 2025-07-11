@@ -70,7 +70,7 @@ export const getLatestMovies = async <
   return data;
 };
 
-export const getMovieDetail = async <T>(movieId: number): Promise<T> => {
+export const getMovieDetail = async <T>(movieId: string): Promise<T> => {
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
   const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const options = {
@@ -176,7 +176,7 @@ export const getMovieReviews = async <T extends TMDBBaseResponse>(
       Authorization: `Bearer ${key}`,
     },
   };
-  const language = "ko-KR";
+  const language = "en-US";
 
   const url = `${baseUrl}/movie/${movieId}/reviews?language=${language}&=page=${page}`;
 
@@ -210,7 +210,7 @@ export const getMovieSimilar = async <T extends TMDBBaseResponse>(
   };
   const language = "ko-KR";
 
-  const url = `${baseUrl}/movie/${movieId}/similar?language=${language}&=page=${page}`;
+  const url = `${baseUrl}/movie/${movieId}/similar?language=${language}&page=${page}`;
 
   const res = await fetch(url, options);
 

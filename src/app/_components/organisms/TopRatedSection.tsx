@@ -1,7 +1,6 @@
 import { MovieListResponse } from "@/app/upcoming/page";
 import React from "react";
 import Card3DList from "./Card3DList";
-import { GenreResponse } from "../../_contexts/GenreContext";
 
 const TopRatedSection = ({ data }: { data: MovieListResponse }) => {
   return (

@@ -8,16 +8,16 @@ const Img = ({
   className,
 }: {
   alt: string;
-  src: string;
+  src: string | null;
   className?: string;
 }) => {
   const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_IMAGE_URL;
-
+  const finalSrc = src ? `${baseUrl}/${src}` : "/no-image.svg";
   return (
     <Image
       className={`${className} `}
       alt={alt}
-      src={`${baseUrl}/${src}`}
+      src={finalSrc}
       fill={true}
       sizes="100%"
       priority={true}

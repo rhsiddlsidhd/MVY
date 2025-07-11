@@ -7,6 +7,8 @@ import {
   HandThumbUpIcon,
   UserIcon,
   GlobeAltIcon,
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
 } from "@heroicons/react/24/solid";
 import { ComponentType, SVGProps } from "react";
 
@@ -33,3 +35,5 @@ export const StarRateIcon = withIconStyle(StarIcon);
 export const HandThumbUp = withIconStyle(HandThumbUpIcon);
 export const PersonIcon = withIconStyle(UserIcon);
 export const LanguageIcon = withIconStyle(GlobeAltIcon);
+export const LeftArrowIcon = withIconStyle(ArrowLeftCircleIcon);
+export const RightArrowIcon = withIconStyle(ArrowRightCircleIcon);

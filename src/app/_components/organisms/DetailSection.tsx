@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { MovieDetail } from "@/app/_types/movie";
 import Text from "../atoms/Text";
@@ -75,7 +76,7 @@ const DetailSection = ({ data }: { data: MovieDetail }) => {
         </div>
       )}
 
-      <div className="relative p-[5vw] max-w-7xl mx-auto">
+      <div className="relative px-[5vw] py-[1rem] max-w-7xl mx-auto">
         {/* 제목 섹션 */}
         <div className="mb-8">
           <Text className="block w-full text-[#B7B508] font-bold text-4xl md:text-6xl lg:text-7xl leading-tight">

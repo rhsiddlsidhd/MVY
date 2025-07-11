@@ -1,6 +1,4 @@
-import { getMovieGenres, getNowPlayingMovies } from "../_services/movie";
 import { TMDBBaseResponse } from "../_utils";
-import { Genre, GenreResponse } from "../_contexts/GenreContext";
 
 export type MovieList = {
   adult: boolean;
@@ -50,10 +48,10 @@ const Upcoming = async () => {
   // UPCOMING API 호출 후 data에 따른 UI 구성
   // 클릭시 Detail 페이지로 이동
 
-  const [movieRes, genreRes] = await Promise.all([
-    getNowPlayingMovies<MovieListResponse>(),
-    getMovieGenres<GenreResponse>(),
-  ]);
+  // const [movieRes, genreRes] = await Promise.all([
+  //   getNowPlayingMovies<MovieListResponse>(),
+  //   getMovieGenres<GenreResponse>(),
+  // ]);
 
   return (
     <div className="h-[100vh] flex justify-center items-center">
