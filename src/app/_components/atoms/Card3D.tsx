@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { MovieList } from "@/app/upcoming/page";
 import Badge from "./Badge";
 import { useGenre } from "../../_contexts/GenreContext";
@@ -15,11 +9,10 @@ import Img from "./Img";
 
 interface Card3DProps {
   data: MovieList;
-  setState?: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
 }
 
-const Card3D = ({ data, setState, className }: Card3DProps) => {
+const Card3D = ({ data, className }: Card3DProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
@@ -70,16 +63,6 @@ const Card3D = ({ data, setState, className }: Card3DProps) => {
         .join(", "),
     [genresdata, genre_ids]
   );
-
-  useEffect(() => {
-    if (!setState) return;
-    const updateWidth = () => {
-      if (containerRef.current) setState(containerRef.current.offsetWidth);
-    };
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [setState]);
 
   return (
     <Link href={`/detail/${id}`} className={`${className}`}>

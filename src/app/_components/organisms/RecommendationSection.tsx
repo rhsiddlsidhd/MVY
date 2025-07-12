@@ -1,12 +1,11 @@
 "use client";
-
-import { MovieListResponse } from "@/app/upcoming/page";
+import { Movie } from "@/app/_types/movie";
 import React, { useRef, useState } from "react";
 import Card3D from "../atoms/Card3D";
-import { getMovieSimilar } from "@/app/_services/movie";
-import { Movie } from "@/app/_types/movie";
+import { getMovieRecommendations } from "@/app/_services/movie";
+import { MovieListResponse } from "@/app/upcoming/page";
 
-const SimilarSection = ({
+const RecommendationSection = ({
   data,
   totalPage,
   id,
@@ -15,7 +14,7 @@ const SimilarSection = ({
   totalPage: number;
   id: string;
 }) => {
-  const [similarData, setSimilarData] = useState<Movie[]>(data);
+  const [visibleData, setVisibleData] = useState<Movie[]>(data);
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const page = useRef<number>(1);
@@ -30,11 +29,11 @@ const SimilarSection = ({
         setLoading(true);
         try {
           page.current += 1;
-          const res = await getMovieSimilar<MovieListResponse>(
+          const res = await getMovieRecommendations<MovieListResponse>(
             id,
             page.current
           );
-          setSimilarData((prev) => [...prev, ...res.results]);
+          setVisibleData((prev) => [...prev, ...res.results]);
         } catch (e) {
           if (e instanceof Error) {
             console.error(e.message);
@@ -49,13 +48,13 @@ const SimilarSection = ({
   return (
     <section className="max-w-7xl px-[5vw] py-[1rem] mx-auto ">
       <div className="relative">
-        <h2 className="text-2xl font-bold mb-6 text-white">관련 영화</h2>
+        <h2 className="text-2xl font-bold mb-6 text-white">추천 영화</h2>
         <div
           ref={scrollRef}
           onScroll={handleScroll}
           className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
         >
-          {similarData.map((movie, idx) => (
+          {visibleData.map((movie, idx) => (
             <Card3D
               key={idx}
               data={movie}
@@ -68,4 +67,4 @@ const SimilarSection = ({
   );
 };
 
-export default SimilarSection;
+export default RecommendationSection;
