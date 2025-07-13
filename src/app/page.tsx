@@ -4,12 +4,11 @@ import {
   getTrailerKeysFromNowPlaying,
 } from "./_services/movie";
 
-import { MovieListResponse } from "./upcoming/page";
-
 import TrailerSection from "./_components/organisms/TrailerSection";
 import TopRatedSection from "./_components/organisms/TopRatedSection";
 import CategorySection from "./_components/organisms/CategorySection";
 import PopularSection from "./_components/organisms/PopularSection";
+import { MovieListResponse } from "./_types/movie";
 
 const Home = async () => {
   const popularData = getPopularMovies<MovieListResponse>();

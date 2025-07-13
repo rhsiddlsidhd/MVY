@@ -11,7 +11,7 @@ export const getNowPlayingMovies = <T extends TMDBBaseResponse>() =>
   fetchMovies<T>("/movie/now_playing");
 
 export const getUpcomingMovies = <T extends TMDBBaseResponse>() =>
-  fetchMovies<T>("/movie/now_playing");
+  fetchMovies<T>("/movie/upcoming");
 
 export const getMovieGenres = async <T extends TMDBBaseResponse>(
   language: string = "ko"

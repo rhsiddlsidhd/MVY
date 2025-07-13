@@ -32,7 +32,7 @@ export const fetchMovies = async <T extends TMDBBaseResponse>(
     },
   };
 
-  const url = `${baseUrl}${endpoint}?language=${language}&page=${page}`;
+  const url = `${baseUrl}${endpoint}?language=${language}&page=${page}&region=KR`;
 
   const res = await fetch(url, options);
 

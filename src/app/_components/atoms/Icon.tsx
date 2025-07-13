@@ -9,6 +9,7 @@ import {
   GlobeAltIcon,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
+  CodeBracketIcon,
 } from "@heroicons/react/24/solid";
 import { ComponentType, SVGProps } from "react";
 
@@ -37,3 +38,4 @@ export const PersonIcon = withIconStyle(UserIcon);
 export const LanguageIcon = withIconStyle(GlobeAltIcon);
 export const LeftArrowIcon = withIconStyle(ArrowLeftCircleIcon);
 export const RightArrowIcon = withIconStyle(ArrowRightCircleIcon);
+export const CodeIcon = withIconStyle(CodeBracketIcon);

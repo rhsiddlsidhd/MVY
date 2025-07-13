@@ -11,7 +11,7 @@ interface OutlineTextProps {
 const OutlineText = ({
   children,
   className = "text-[4vw]",
-  strokeColor = "#B7B508",
+  strokeColor = "#b7b508",
   strokeWidth = "1px",
   style = {},
 }: OutlineTextProps) => {
