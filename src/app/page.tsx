@@ -9,19 +9,25 @@ import TopRatedSection from "./_components/organisms/TopRatedSection";
 import CategorySection from "./_components/organisms/CategorySection";
 import PopularSection from "./_components/organisms/PopularSection";
 import { MovieListResponse } from "./_types/movie";
+import GlobalLoading from "./loading";
 
 const Home = async () => {
-  const popularData = getPopularMovies<MovieListResponse>();
-  const topRatedData = getTopRatedMovies<MovieListResponse>();
+  const popularData = getPopularMovies<MovieListResponse>({
+    page: 1,
+    language: "ko-KR",
+  });
+  const topRatedData = getTopRatedMovies<MovieListResponse>({
+    page: 1,
+    language: "ko-KR",
+  });
   const trailerKeysData = getTrailerKeysFromNowPlaying();
   const [popular, topRated, trailerKeys] = await Promise.all([
     popularData,
-
     topRatedData,
     trailerKeysData,
   ]);
 
-  if (!popular || !topRated || !trailerKeys) return <div>Loading</div>;
+  if (!popular || !topRated || !trailerKeys) return <GlobalLoading />;
 
   return (
     <div className="min-sm:p-[5vw] flex flex-col gap-[3rem]">

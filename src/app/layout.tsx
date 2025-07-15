@@ -55,7 +55,7 @@ export default async function RootLayout({
           <SearchBarWithHamburger />
         </header>
         <GenreProvider value={mergedGenres}>
-          <div className="max-w-[1960px] w-full max-sm:pt-[3rem] ">
+          <div className="max-w-[1960px] w-full max-sm:pt-[3rem]">
             {children}
           </div>
         </GenreProvider>

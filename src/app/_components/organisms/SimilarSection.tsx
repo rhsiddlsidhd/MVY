@@ -1,10 +1,9 @@
 "use client";
 
-import { MovieListResponse } from "@/app/upcoming/page";
 import React, { useRef, useState } from "react";
 import Card3D from "../atoms/Card3D";
 import { getMovieSimilar } from "@/app/_services/movie";
-import { Movie } from "@/app/_types/movie";
+import { Movie, MovieListResponse } from "@/app/_types/movie";
 
 const SimilarSection = ({
   data,

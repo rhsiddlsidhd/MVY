@@ -1,7 +1,8 @@
 "use client";
-import { MovieListResponse } from "@/app/upcoming/page";
+
 import React from "react";
 import Card3D from "../atoms/Card3D";
+import { MovieListResponse } from "@/app/_types/movie";
 
 const Card3DList = ({
   data,
@@ -15,7 +16,9 @@ const Card3DList = ({
   return (
     <>
       {data.results.slice(0, count).map((movie, i) => {
-        return <Card3D key={i} data={movie} className={`${className}`} />;
+        return (
+          <Card3D key={i} data={movie} lang={true} className={`${className}`} />
+        );
       })}
     </>
   );

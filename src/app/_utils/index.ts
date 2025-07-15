@@ -6,8 +6,6 @@ export interface TMDBBaseResponse {
 
 const key = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const baseUrl = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
-const language = "ko-KR";
-const page = 1;
 
 export const fetcher = async (resource: RequestInfo, init?: RequestInit) => {
   const res = await fetch(resource, init);
@@ -21,9 +19,15 @@ export const fetcher = async (resource: RequestInfo, init?: RequestInit) => {
   return res.json();
 };
 
-export const fetchMovies = async <T extends TMDBBaseResponse>(
-  endpoint: string
-): Promise<T | null> => {
+export const fetchMovies = async <T extends TMDBBaseResponse>({
+  endpoint,
+  language,
+  page,
+}: {
+  endpoint: string;
+  language: string;
+  page: number;
+}): Promise<T | null> => {
   const options = {
     method: "GET",
     headers: {

@@ -1,22 +1,22 @@
 "use client";
 
-import { MovieList, MovieListResponse } from "@/app/upcoming/page";
 import React, { useEffect, useRef, useState } from "react";
 import Banner from "../atoms/Banner";
 import Link from "next/link";
 import { getFilteredMovies } from "@/app/_services/movie";
+import { Movie, MovieListResponse } from "@/app/_types/movie";
 
 const BannerList = ({
   data,
   slug,
   totalPage,
 }: {
-  data: MovieList[];
+  data: Movie[];
   slug: number;
   totalPage: number;
 }) => {
   const containerRef = useRef<HTMLHRElement | null>(null);
-  const [bannerData, setBannerData] = useState<MovieList[]>(data);
+  const [bannerData, setBannerData] = useState<Movie[]>(data);
 
   // ref로 상태 관리
   const pageRef = useRef<number>(1);

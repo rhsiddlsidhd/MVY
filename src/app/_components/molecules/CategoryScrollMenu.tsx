@@ -56,7 +56,9 @@ const CategoryScrollMenu = ({
               selected === id ? "scale-100" : "scale-0"
             } duration-300 ease-in origin-bottom-left`}
           />
-          <Text className={`whitespace-nowrap text-white`}>{ko}</Text>
+          <Text className={`whitespace-nowrap text-white text-[2vw]`}>
+            {ko}
+          </Text>
         </div>
       ))}
     </div>

@@ -13,9 +13,7 @@ const CategoryDisplay = ({
   selected?: number;
 }) => {
   return (
-    <div
-      className={`relative h-[25vh] min-h-[500px] flex items-center justify-center gap-[1rem] `}
-    >
+    <div className={`relative h-[12vw] flex items-center justify-center py-8`}>
       {data.map(({ id, ko }) => (
         <Link
           key={id}
@@ -26,7 +24,7 @@ const CategoryDisplay = ({
               : "opacity-0 pointer-events-none"
           } transform-opacity duration-300 ease-in `}
         >
-          <OutlineText className="text-[10vw] ">{ko}</OutlineText>
+          <OutlineText className="text-[6vw]">{ko}</OutlineText>
         </Link>
       ))}
     </div>

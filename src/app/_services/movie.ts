@@ -1,17 +1,37 @@
-import { MovieListResponse, MovieVideosResponse } from "../upcoming/page";
+import { MovieListResponse, MovieVideosResponse } from "../_types/movie";
 import { fetchMovies, TMDBBaseResponse } from "../_utils";
 
-export const getTopRatedMovies = <T extends TMDBBaseResponse>() =>
-  fetchMovies<T>("/movie/top_rated");
+export const getTopRatedMovies = <T extends TMDBBaseResponse>({
+  page,
+  language,
+}: {
+  page: number;
+  language: string;
+}) => fetchMovies<T>({ endpoint: "/movie/top_rated", page, language });
 
-export const getPopularMovies = <T extends TMDBBaseResponse>() =>
-  fetchMovies<T>("/movie/popular");
+export const getPopularMovies = <T extends TMDBBaseResponse>({
+  page,
+  language,
+}: {
+  page: number;
+  language: string;
+}) => fetchMovies<T>({ endpoint: "/movie/popular", page, language });
 
-export const getNowPlayingMovies = <T extends TMDBBaseResponse>() =>
-  fetchMovies<T>("/movie/now_playing");
+export const getNowPlayingMovies = <T extends TMDBBaseResponse>({
+  page,
+  language,
+}: {
+  page: number;
+  language: string;
+}) => fetchMovies<T>({ endpoint: "/movie/now_playing", page, language });
 
-export const getUpcomingMovies = <T extends TMDBBaseResponse>() =>
-  fetchMovies<T>("/movie/upcoming");
+export const getUpcomingMovies = <T extends TMDBBaseResponse>({
+  page,
+  language,
+}: {
+  page: number;
+  language: string;
+}) => fetchMovies<T>({ endpoint: "/movie/upcoming", page: page, language });
 
 export const getMovieGenres = async <T extends TMDBBaseResponse>(
   language: string = "ko"
@@ -296,7 +316,10 @@ export const getFilteredMovies = async <T extends TMDBBaseResponse>(
 };
 
 export const getTrailerKeysFromNowPlaying = async () => {
-  const nowPlaying = await getNowPlayingMovies<MovieListResponse>();
+  const nowPlaying = await getNowPlayingMovies<MovieListResponse>({
+    page: 1,
+    language: "ko-KR",
+  });
   const ids = nowPlaying && nowPlaying.results.map((movie) => movie.id);
 
   const videoResults =
