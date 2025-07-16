@@ -57,6 +57,7 @@ const RecommendationSection = ({
             <Card3D
               key={idx}
               data={movie}
+              lang={true}
               className={`w-[calc((100%-3rem)/4)] shrink-0 aspect-[3/4] max-xl:w-[calc((100%-1rem)/2)]  max-sm:w-full max-sm:aspect-[16/9] snap-start`}
             />
           ))}

@@ -10,6 +10,7 @@ import {
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
   CodeBracketIcon,
+  CheckIcon,
 } from "@heroicons/react/24/solid";
 import { ComponentType, SVGProps } from "react";
 
@@ -39,3 +40,4 @@ export const LanguageIcon = withIconStyle(GlobeAltIcon);
 export const LeftArrowIcon = withIconStyle(ArrowLeftCircleIcon);
 export const RightArrowIcon = withIconStyle(ArrowRightCircleIcon);
 export const CodeIcon = withIconStyle(CodeBracketIcon);
+export const CheckboxIcon = withIconStyle(CheckIcon);

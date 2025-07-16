@@ -37,6 +37,7 @@ const DetailSection = ({ data }: { data: MovieDetail }) => {
     original_language,
     spoken_languages,
     homepage,
+    id,
   } = data;
 
   // 수익률 계산
@@ -60,6 +61,16 @@ const DetailSection = ({ data }: { data: MovieDetail }) => {
       ar: "아랍어",
     };
     return languages[code] || code.toUpperCase();
+  };
+
+  const handleFavorite = (movieId: number) => {
+    const getItem = localStorage.getItem(`favorite_${movieId}`);
+    if (!getItem) {
+      localStorage.setItem(`favorite_${movieId}`, JSON.stringify(data));
+      alert("즐겨찾기에 추가되었습니다.");
+    } else {
+      alert("이미 즐겨찾기에 추가된 영화입니다.");
+    }
   };
 
   return (
@@ -383,7 +394,10 @@ const DetailSection = ({ data }: { data: MovieDetail }) => {
                   <Text className="font-medium">IMDb</Text>
                 </a>
               )}
-              <button className="flex items-center gap-2 px-4 py-2 bg-[#B7B508] hover:bg-[#B7B508]/80 text-black rounded-lg transition-colors font-medium">
+              <button
+                onClick={() => handleFavorite(id)}
+                className="flex items-center gap-2 px-4 py-2 bg-[#B7B508] hover:bg-[#B7B508]/80 text-black rounded-lg transition-colors font-medium"
+              >
                 <span>❤️</span>
                 <Text>즐겨찾기</Text>
               </button>

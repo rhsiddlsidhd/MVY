@@ -5,10 +5,10 @@ import Badge from "./Badge";
 import { useGenre } from "../../_contexts/GenreContext";
 import Link from "next/link";
 import Img from "./Img";
-import { Movie } from "@/app/_types/movie";
+import { Movie, MovieDetail } from "@/app/_types/movie";
 
 interface Card3DProps {
-  data: Movie;
+  data: Movie | MovieDetail;
   lang?: boolean;
   className?: string;
 }
@@ -51,20 +51,29 @@ const Card3D = ({ data, lang, className }: Card3DProps) => {
     setRotate({ x: 0, y: 0 });
   };
 
-  const { title, genre_ids, overview, backdrop_path, release_date, adult, id } =
-    data;
+  const { title, overview, backdrop_path, release_date, adult, id } = data;
 
   const genresdata = useGenre();
 
-  const genres = useMemo(
-    () =>
-      genresdata &&
-      genresdata
-        .filter(({ id }) => genre_ids.includes(id))
+  // );
+
+  const genreNames = useMemo(() => {
+    if (!genresdata) return "";
+    if ("genre_ids" in data && Array.isArray(data.genre_ids)) {
+      return genresdata
+        .filter(({ id }) => data.genre_ids.includes(id))
         .map(({ ko, en }) => (lang ? ko : en))
-        .join(", "),
-    [genresdata, genre_ids, lang]
-  );
+        .join(", ");
+    }
+    if ("genres" in data && Array.isArray(data.genres)) {
+      const ids = data.genres.map((g) => g.id);
+      return genresdata
+        .filter(({ id }) => ids.includes(id))
+        .map(({ ko, en }) => (lang ? ko : en))
+        .join(", ");
+    }
+    return "";
+  }, [genresdata, data, lang]);
 
   if (!data) return null;
 
@@ -111,7 +120,7 @@ const Card3D = ({ data, lang, className }: Card3DProps) => {
                 </div>
                 <div className="bg-black/50 p-5 rounded-lg text-center w-fit max-w-full mx-auto">
                   <h2 className="text-2xl font-bold mb-2 truncate">{title}</h2>
-                  <p className="text-base truncate">{genres}</p>
+                  <p className="text-base truncate">{genreNames}</p>
                 </div>
               </div>
 
